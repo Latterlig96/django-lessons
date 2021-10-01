@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/css/common.css' %}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+<div class="container">
+    <div class="card card-container">
+        {% block content%}
+        {% endblock %}
+    </div>
+</div>
