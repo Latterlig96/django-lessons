@@ -9,7 +9,7 @@ class CustomUserManager(BaseUserManager):
                     username: str, 
                     email: str, 
                     password: str, 
-                    **extra_fields: Dict[Any]) -> User:
+                    **extra_fields: Dict[Any, Any]) -> User:
         if not email:
             raise ValueError(_('The Email must be set'))
         if not username:
@@ -24,7 +24,7 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self,
                          email: str, 
                          password: str, 
-                         **extra_fields: Dict[Any]) -> User:
+                         **extra_fields: Dict[Any, Any]) -> User:
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)

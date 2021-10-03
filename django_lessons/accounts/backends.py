@@ -12,7 +12,7 @@ class UsernameBackend(ModelBackend):
                      request: httpRequest, 
                      username: Optional[str]=None, 
                      password: str=None, 
-                     **kwargs: Dict[Any]):
+                     **kwargs: Dict[Any, Any]):
         UserModel = get_user_model()
         try:
             user = UserModel.objects.get(username=username)

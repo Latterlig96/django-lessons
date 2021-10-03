@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-03 17:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: accounts/forms.py:19 accounts/forms.py:51 accounts/forms.py:56
+#: accounts/forms.py:90 accounts/forms.py:115
+msgid "Password"
+msgstr "Hasło"
+
+#: accounts/forms.py:24 accounts/forms.py:48 accounts/forms.py:76
+#: accounts/forms.py:120
+#, fuzzy
+#| msgid "email address"
+msgid "Email address"
+msgstr "Adres e-mail"
+
+#: accounts/forms.py:29 accounts/forms.py:125
+#, fuzzy
+#| msgid "username"
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: accounts/forms.py:34
+#, fuzzy
+#| msgid "first name"
+msgid "First name"
+msgstr "Imie"
+
+#: accounts/forms.py:39
+#, fuzzy
+#| msgid "last name"
+msgid "Last name"
+msgstr "Nazwisko"
+
+#: accounts/forms.py:62
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may "
+"be case-sensitive."
+msgstr ""
+"Proszę podać poprawną nazwe %(username)s, uważając na wprowadzane znaki"
+
+#: accounts/forms.py:65
+msgid "This account is inactive."
+msgstr "To konto jest nieaktywne"
+
+#: accounts/forms.py:71
+msgid "Email"
+msgstr "Email"
+
+#: accounts/forms.py:83
+msgid "The two password fields didn’t match."
+msgstr "Podane hasła są niezgodne ze sobą"
+
+#: accounts/forms.py:86
+msgid "New password"
+msgstr "Nowe hasło"
+
+#: accounts/forms.py:96 accounts/forms.py:101
+msgid "Confirm password"
+msgstr "Zatwierdź hasło"
+
+#: accounts/forms.py:130 accounts/models.py:26
+msgid "first name"
+msgstr "Imie"
+
+#: accounts/forms.py:135 accounts/models.py:27
+msgid "last name"
+msgstr "Nazwisko"
+
+#: accounts/managers.py:14
+msgid "The Email must be set"
+msgstr "E-mail jest wymagany"
+
+#: accounts/managers.py:16
+msgid "The username must be set"
+msgstr "Nazywa użytkownika jest wymagana"
+
+#: accounts/managers.py:33
+msgid "Superuser must have is_staff=True."
+msgstr "Superuser musi posiadać uprawnienia superusera"
+
+#: accounts/managers.py:35
+msgid "Superuser must have is_superuser=True."
+msgstr "Superuser musi posiadać uprawnienia superusera"
+
+#: accounts/models.py:15
+msgid "username"
+msgstr "Nazwa użytkownika"
+
+#: accounts/models.py:20
+msgid "A user with that username already exists."
+msgstr "Użytkownik o tej nazwie już istnieje"
+
+#: accounts/models.py:24
+msgid "email address"
+msgstr "Adres e-mail"
+
+#: accounts/models.py:25
+msgid "password"
+msgstr "Hasło"
+
+#: accounts/views.py:15
+msgid "Your profile was created successfully"
+msgstr "Twoje konto zostało pomyślnie założone"
+
+#: accounts/views.py:42
+msgid "You password has been successfully reseted"
+msgstr "Twoje hasło zostało pomyślnie zresetowane"
+
+#: templates/accounts/login.html:7
+msgid "Log In"
+msgstr "Zaloguj się"
+
+#: templates/accounts/login.html:10
+msgid "Forgot the password?"
+msgstr "Zapomniałeś hasła?"
+
+#: templates/accounts/login.html:13
+msgid "Register?"
+msgstr "Zarejestruj się"
+
+#: templates/accounts/password_change_form.html:7
+msgid "Change"
+msgstr "Zmień"
+
+#: templates/accounts/password_reset.html:7
+msgid "Send"
+msgstr "Wyślij"
+
+#: templates/accounts/password_reset_done.html:5
+msgid "Email sent"
+msgstr "e-mail został wysłany"
+
+#: templates/accounts/password_reset_done.html:6
+msgid "You've received email with further information to reset your password"
+msgstr ""
+"Wysłaliśmy na twojego e-maila dalsze informacje dotyczące resetu twojego "
+"hasła"
+
+#: templates/accounts/password_reset_form.html:7
+msgid "Reset"
+msgstr "Zresetuj"
+
+#: templates/accounts/register.html:7
+msgid "Register"
+msgstr "Zarejestruj"

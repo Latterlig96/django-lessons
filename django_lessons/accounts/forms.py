@@ -16,27 +16,27 @@ class StudentAccountForm(ModelForm):
             'password': forms.PasswordInput(attrs={
                                                    'id': 'inputPassword',
                                                    'class': 'form-control',
-                                                   'placeholder': 'Password',
+                                                   'placeholder': _('Password'),
                                                    'type': 'password'}),
             'email': Input(attrs={
                             'id': 'inputEmail',
                             'class': 'form-control',
-                            'placeholder': 'Email address',
+                            'placeholder': _('Email address'),
                             'type': 'email'}),
             'username': Input(attrs={
                         'id': 'inputUsername',
                         'class': 'form-control',
-                        'placeholder': 'Username',
+                        'placeholder': _('Username'),
                         'type': 'username'}),
             'first_name': Input(attrs={
                             'id': 'inputFirstName',
                             'class': 'form-control',
-                            'placeholder': 'First name',
+                            'placeholder': _('First name'),
                             'type': 'first_name'}),
             'last_name':  Input(attrs={
                             'id': 'inputLastName',
                             'class': 'form-control',
-                            'placeholder': 'Last name',
+                            'placeholder': _('Last name'),
                             'type': 'last_name'}),
         }
 
@@ -45,7 +45,7 @@ class StudentLoginForm(AuthenticationForm):
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True,
                                                            'id': 'inputEmail',
                                                            'class': 'form-control',
-                                                           'placeholder': 'Email address',
+                                                           'placeholder': _('Email address'),
                                                            'type': 'email'}))
     password = forms.CharField(
         label=_("Password"),
@@ -53,7 +53,7 @@ class StudentLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'autocomplete': 'current-password',
                                           'id': 'inputPassword',
                                           'class': 'form-control',
-                                          'placeholder': 'Password',
+                                          'placeholder': _('Password'),
                                           'type': 'password'}),
     )
 
@@ -73,7 +73,7 @@ class PasswordResetForm(PasswordResetForm):
         widget=forms.EmailInput(attrs={'autocomplete': 'email',
                                        'id': 'inputEmail',
                                        'class': 'form-control',
-                                       'placeholder': 'Email address',
+                                       'placeholder': _('Email address'),
                                        'type': 'email'})
     )
 
@@ -87,7 +87,7 @@ class SetPasswordForm(SetPasswordForm):
         widget=forms.PasswordInput(attrs={
                                         'id': 'inputPassword',
                                         'class': 'form-control',
-                                        'placeholder': 'Password',
+                                        'placeholder': _('Password'),
                                         'type': 'password'}),
         strip=False,
     )
@@ -98,7 +98,7 @@ class SetPasswordForm(SetPasswordForm):
         widget=forms.PasswordInput(attrs={
                                         'id': 'inputPassword',
                                         'class': 'form-control',
-                                        'placeholder': 'Confirm password',
+                                        'placeholder': _('Confirm password'),
                                         'type': 'password'}),
     )
 
@@ -112,26 +112,26 @@ class TutorAccountForm(ModelForm):
             'password': forms.PasswordInput(attrs={
                                                    'id': 'inputPassword',
                                                    'class': 'form-control',
-                                                   'placeholder': 'Password',
+                                                   'placeholder': _('Password'),
                                                    'type': 'password'}),
             'email': Input(attrs={
                             'id': 'inputEmail',
                             'class': 'form-control',
-                            'placeholder': 'Email address',
+                            'placeholder': _('Email address'),
                             'type': 'email'}),
             'username': Input(attrs={
                         'id': 'inputUsername',
                         'class': 'form-control',
-                        'placeholder': 'Username',
+                        'placeholder': _('Username'),
                         'type': 'username'}),
             'first_name': Input(attrs={
                             'id': 'inputFirstName',
                             'class': 'form-control',
-                            'placeholder': 'first name',
+                            'placeholder': _('first name'),
                             'type': 'first_name'}),
             'last_name':  Input(attrs={
                             'id': 'inputLastName',
                             'class': 'form-control',
-                            'placeholder': 'last name',
+                            'placeholder': _('last name'),
                             'type': 'last_name'}),
         }
