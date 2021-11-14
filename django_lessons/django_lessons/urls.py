@@ -18,14 +18,14 @@ from django.conf.urls import url
 from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
-from app.views import Index
+from app.views import IndexView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('app/', include('app.urls', namespace='app')),
-    url(r'^$', Index.as_view(), name='home')
+    url(r'^$', IndexView.as_view(), name='home')
 ]
 
 if settings.DEBUG:

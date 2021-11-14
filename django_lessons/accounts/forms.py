@@ -1,23 +1,42 @@
 from django import forms
 from django.forms import ModelForm
 from django.forms.widgets import Input
-from django.contrib.auth.forms import AuthenticationForm, UsernameField, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, UsernameField, PasswordResetForm, SetPasswordForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
-from .models import StudentUser, TutorUser
+from .models import StudentProfile, StudentUser, TutorUser
 
 
-class StudentAccountForm(ModelForm):
+class StudentAccountRegisterForm(UserCreationForm):
+    
+    password1 = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+                                        'id': 'inputPassword',
+                                        'class': 'form-control',
+                                        'placeholder': _('Password'),
+                                        'type': 'password'}),
+    )
+
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput(attrs={
+                                        'id': 'inputPassword',
+                                        'class': 'form-control',
+                                        'placeholder': _('Password'),
+                                        'type': 'password'}),
+        strip=False,
+    )
+
+    error_messages = {
+        'password_mismatch': _('The two password fields didn’t match.'),
+    }
 
     class Meta:
         model = StudentUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'password')
-        required = ('username', 'first_name', 'last_name', 'email', 'password')
+        fields = ('username', 'first_name', 'last_name', 'email')
+        required = ('username', 'first_name', 'last_name', 'email')
         widgets = {
-            'password': forms.PasswordInput(attrs={
-                                                   'id': 'inputPassword',
-                                                   'class': 'form-control',
-                                                   'placeholder': _('Password'),
-                                                   'type': 'password'}),
             'email': Input(attrs={
                             'id': 'inputEmail',
                             'class': 'form-control',
@@ -40,6 +59,37 @@ class StudentAccountForm(ModelForm):
                             'type': 'last_name'}),
         }
 
+class StudentProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = StudentUser
+        fields = ('username', 'email', 'first_name', 'last_name')
+        exclude = ('password', 'is_student')
+
+class InlineStudentProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = StudentProfile
+        fields = ('image', 'location', 'phone_number')
+
+        widgets = {
+            'image':  Input(attrs={
+                            'id': 'inputImage',
+                            'class': 'form-control',
+                            'placeholder': _('image'),
+                            'type': 'image'}),
+            'location':  Input(attrs={
+                            'id': 'inputLocation',
+                            'class': 'form-control',
+                            'placeholder': _('location'),
+                            'type': 'location'}),
+            'phone_number':  Input(attrs={
+                            'id': 'inputPhoneNumber',
+                            'class': 'form-control',
+                            'placeholder': _('phone_number'),
+                            'type': 'phone_number'}),
+        }
+    
 class StudentLoginForm(AuthenticationForm):
 
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True,
@@ -82,6 +132,7 @@ class SetPasswordForm(SetPasswordForm):
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
     }
+    
     new_password1 = forms.CharField(
         label=_("New password"),
         widget=forms.PasswordInput(attrs={
@@ -104,6 +155,10 @@ class SetPasswordForm(SetPasswordForm):
 
 class TutorAccountForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_student'].initial = False
+    
     class Meta:
         model = TutorUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password')

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'app/css/index.css' %}">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="{% static 'app/js/index.js' %}"></script>
+        <title>NF Korepetycje</title>
+    </head>
+    <body>
+        <div class="page-content">
+            <nav>
+                <div class="nav-left">
+                    <div class="title">NF Korepetycje</div>
+                    <ul class="menu-options">
+                        <li><a href="{% url 'app:index' %}">Home</a></li>
+                        <li><a href="{% url 'app:contact' %}">Contact</a></li>
+                        <li><a href="{% url 'app:modules' %}">Modules</a></li>
+                        {% if not request.user.is_authenticated %}
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    {% if request.user.is_authenticated %}
+                    <button onclick="$('#profile-menu').toggleClass('show-profile-menu');" class="profile-button"><img src="https://mdbootstrap.com/img/new/avatars/2.jpg"/></button>
+                    {% endif %}
+                </div>
+            </nav>
+            {% if request.user.is_authenticated %}
+            <div id="profile-menu">
+                <ul>
+                    <li><a href="{% url 'accounts:profile' request.user.pk %}">Profile</a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Log Out</a></li>
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="content">
+                <div class="description">
+                    <div class="about">
+                        <h1>About me</h1>
+                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+                    </div>
+                    <div class="physics">
+                        <div id="img-physics">
+                            <img src="{% static 'app/img/physics.jpg' %}" width=400 height=400>
+                        </div>
+                        <div id="overview">
+                            <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+                        </div>
+                    </div>
+                    <div class="math">
+                        <div id="overview">
+                            <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+                        </div>
+                        <div id="img-math">
+                            <img src="{% static 'app/img/math.jpg' %}" width=400 height=400>
+                        </div>
+                    </div>
+                    <div class="chemistry">
+                        <div id="img-chemistry">
+                            <img src="{% static 'app/img/chemistry.jpg' %}" width=400 height=400>
+                        </div>
+                        <div id="overview">
+                            <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <footer >
+                <div class="footer-copyright">
+                    © 2020 Copyright:
+                    <p> Natalia Frankowska</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
