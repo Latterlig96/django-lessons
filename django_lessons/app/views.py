@@ -9,5 +9,5 @@ class IndexView(TemplateView):
 class ContactView(TemplateView):
     template_name = 'app/contact.html'
 
-class ModuleView(ListView):
+class ModulesView(ListView):
     model = Module

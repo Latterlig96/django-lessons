@@ -6,5 +6,5 @@ app_name = 'app'
 urlpatterns = [
     path('index/', views.IndexView.as_view(), name='index'),
     path('contact/', views.ContactView.as_view(), name='contact'),
-    path('module/', views.ModuleView.as_view(), name='modules')
+    path('modules/', views.ModulesView.as_view(), name='modules')
 ]
