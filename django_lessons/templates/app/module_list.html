@@ -1,0 +1,3 @@
+{% for module in object_list %}
+<a href="{% url 'app:exercises' module.id %}">{{ module }}</a>
+{% endfor %}

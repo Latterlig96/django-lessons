@@ -17,7 +17,7 @@ class Subject(models.Model):
 
 class Module(models.Model):
 
-    subject = models.OneToOneField(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

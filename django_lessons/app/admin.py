@@ -12,7 +12,7 @@ class SubjectAdmin(admin.ModelAdmin):
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ('subject', 'title', 'description', 'created_at')
-    fields = ('subject', 'title', 'description', 'created_at')
+    fields = ('subject', 'title', 'description')
     list_filter = ('created_at',)
     form = ModuleForm
 
@@ -21,6 +21,6 @@ class ExerciseAdmin(admin.ModelAdmin):
     list_display = ('module', 'image_description', 'text_description',
                     'image_answer', 'text_answer', 'created_at')
     fields = ('module', 'image_description', 'text_description',
-              'image_answer', 'text_answer', 'created_at')
+              'image_answer', 'text_answer')
     list_filter = ('created_at',)
     form = ExerciseForm
