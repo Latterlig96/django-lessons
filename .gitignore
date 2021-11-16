@@ -61,6 +61,7 @@ migrations/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+media/
 
 # Flask stuff:
 instance/
@@ -128,3 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
