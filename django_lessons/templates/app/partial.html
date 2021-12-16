@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'app/css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'app/css/common.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital@0;1&family=Lora:wght@500&family=Roboto+Mono:ital@1&family=Source+Sans+3:ital@1&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="{% static 'app/js/index.js' %}"></script>
+    </head>
+    <body>
+        <div class="page-content">
+            <nav>
+                <div class="nav-left">
+                    <div class="title">NF Korepetycje</div>
+                    <ul class="menu-options">
+                        <li><a href="{% url 'app:index' %}">Home</a></li>
+                        <li><a href="{% url 'app:contact' %}">Contact</a></li>
+                        <li><a href="{% url 'app:subjects' %}">Subjects</a></li>
+                        {% if not request.user.is_authenticated %}
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    {% if request.user.is_authenticated %}
+                    <button onclick="$('#profile-menu').toggleClass('show-profile-menu');" class="profile-button"><img src="https://mdbootstrap.com/img/new/avatars/2.jpg"/></button>
+                    {% endif %}
+                </div>
+            </nav>
+            {% if request.user.is_authenticated %}
+            <div id="profile-menu">
+                <ul>
+                    <li><a href="{% url 'accounts:profile' request.user.pk %}">Profile</a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Log Out</a></li>
+                </ul>
+            </div>
+            {% endif %}
+            {% block content %}
+            {% endblock%}
+        </div>
+    </body>
+</html>

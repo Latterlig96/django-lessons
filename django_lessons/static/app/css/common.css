@@ -1,0 +1,16 @@
+.subject-card {
+    float: left;
+    margin: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #FFF;
+    margin-left: 12%;
+    border-radius: 20px;
+    box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
+    transition: all 0.2s ease-in-out;
+}
+
+.subject-card-image {
+    border-radius: 20px;
+}

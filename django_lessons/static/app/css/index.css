@@ -57,11 +57,12 @@ nav {
 
 .content {
     background-color: #FFF;
-    margin: 70px 100px;
-    padding: 20px 50px;
+    margin: 70px 150px;
+    padding: 20px 100px;
     border-radius: 40px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
     transition: all 0.2s ease-in-out;
+    align-items: stretch;
 }
 
 .content:hover {
@@ -69,9 +70,40 @@ nav {
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.12);
 }
 
-.description {
+.physics {
     display: flex;
-    justify-content: center;
+}
+
+.math {
+    display: flex;
+}
+
+.chemistry {
+    display: flex;
+}
+
+.subject-image {
+    width: 400px;
+    height: 400px;
+    border-radius: 100%;
+    background-size: cover;
+}
+
+#info {
+    font-family: 'Fira Sans', sans-serif;
+    padding: 0px 0px 0px 50px;
+    font-size: 20px;
+}
+
+.about {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 20px;
+}
+
+.about h1 {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 50px;
+    text-align: center;
 }
 
 .menu-options {

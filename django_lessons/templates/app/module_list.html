@@ -1,3 +1,13 @@
+{% extends 'app/partial.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'app/css/common.css' %}"></link>
+{% block content %}
 {% for module in object_list %}
-<a href="{% url 'app:exercises' module.id %}">{{ module }}</a>
+<div class="module-card">
+    <div class="card-content">
+        <img class="module-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
+        <h2><a href="{% url 'app:exercises' module.id %}">{{ module }}</a></h2>
+    </div>
+</div>
 {% endfor %}
+{% endblock %}
