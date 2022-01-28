@@ -1,0 +1,26 @@
+{% extends 'app/partial.html' %}
+{% load static %}
+{% block content %}
+<div class="message-wrapper">
+    <ul class="message-list">
+    {% for message in object_list %}
+        <a href="{% url 'accounts:message_detail' request.user.pk message.pk %}">
+            <li class="message-item">
+                <div id="message-author">
+                    <h2> {{message.tutor_user}} <h2>
+                </div>
+                <div id="message-timestamp">
+                    <p> {{message.created_at}} </p>
+                </div>
+                <div id="message-title">
+                    <h3> {{message.title|truncatechars:200}} </h3>
+                </div>
+                <div id="message-content">
+                    <p> {{message.message|truncatechars:200}} </p>
+                </div>
+            </li>
+        </a>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

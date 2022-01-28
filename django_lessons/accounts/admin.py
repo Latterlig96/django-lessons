@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import StudentUser, TutorUser, StudentProfile, TutorProfile
+from .models import StudentUser, TutorUser, StudentProfile, TutorProfile, Messages
 from .forms import StudentAccountRegisterForm, TutorAccountForm
 
 
@@ -24,3 +24,7 @@ class StudentProfiles(admin.ModelAdmin):
 @admin.register(TutorProfile)
 class TutorProfiles(admin.ModelAdmin):
     list_display = ('user', 'image', 'location', 'phone_number')
+
+@admin.register(Messages)
+class MessagesAdmin(admin.ModelAdmin):
+    list_display = ('student_user', 'title')

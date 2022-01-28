@@ -1,9 +1,73 @@
-{% extends 'accounts/partial.html' %}
-{% block content %}
-<form class="form-signin" method="POST">
-    {% csrf_token %}
-    {{ form }}
-    {{ student_profile_form }}
-    <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Change">
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,100&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="{% static 'accounts/js/profile.js' %}"></script>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo-content">
+                <div class="logo">
+                    <div class="logo-name"><strong>NF Korepetycje</strong></div>
+                </div>
+                <i class='bx bx-menu' id="btn"></i>
+            </div>
+            <ul class="nav-list">
+                <li>
+                    <a href="{% url 'app:index' %}">
+                        <i class='bx bx-home'></i>
+                        <span class="links-name">Home</span>
+                    </a>
+                    <span class="tooltip">Home</span>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:settings' request.user.pk %}">
+                        <i class='bx bx-user'></i>
+                        <span class="links-name">User</span>
+                    </a>
+                    <span class="tooltip">User</span>
+                </li>
+                <li>
+                    <a href="{% url 'app:subjects' %}">
+                        <i class='bx bxs-briefcase' ></i>
+                        <span class="links-name">Exercise</span>
+                    </a>
+                    <span class="tooltip">Exercise</span>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:messages' request.user.pk %}">
+                        <i class='bx bx-message-dots'></i>
+                        <span class="links-name">Messages</span>
+                    </a>
+                    <span class="tooltip">Messages</span>
+                </li>
+                <li>
+                    <a href="{% url 'app:favorites' request.user.pk %}">
+                        <i class='bx bx-heart' ></i>
+                        <span class="links-name">Favorite</span>
+                    </a>
+                    <span class="tooltip">Favorite</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-shopping-bag-alt'></i>
+                        <span class="links-name">Order</span>
+                    </a>
+                    <span class="tooltip">Order</span>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:logout' %}">
+                        <i class='bx bx-log-out' ></i>
+                        <span class="links-name">Log out</span>
+                    </a>
+                    <span class="tooltip">Log out</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

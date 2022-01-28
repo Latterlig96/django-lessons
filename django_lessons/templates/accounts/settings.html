@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'accounts/css/settings.css' %}">
+    </head>
+    <body>
+        <div class="form-wrapper">
+            <div class="form-content">
+                <form class="form" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="field-wrapper">
+                            {{ field.errors }}
+                            {{ field.label_tag }} {{ field }}
+                        </div>
+                    {% endfor %}
+                    {% for field in student_profile_form %}
+                        <div class="field-wrapper">
+                            {{ field.errors }}
+                            {{ field.label_tag }} {{ field }}
+                        </div>
+                    {% endfor %}
+                    <input id="btn" type="submit" value="Change">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

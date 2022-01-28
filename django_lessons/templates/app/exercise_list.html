@@ -1,11 +1,23 @@
 {% extends 'app/partial.html' %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'app/css/common.css' %}"></link>
 {% block content %}
+{% load static %}
 {% for exercise in object_list %}
-<div class="exercise-card">
-    <div class="card-content">
-        <img class="exercise-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
-        <h2><a href="{% url 'app:exercise' exercise.id %}">{{ exercise }}</a></h2>
+<a href="{% url 'app:exercise' exercise.module.pk exercise.pk %}">
+    <div class="exercise-card">
+        <div class="card-content">
+            <div class="card-image">
+                <img class="exercise-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
+            </div>
+            <div class="exercise-info">
+                <div id="exercise-title">
+                    <h2> {{exercise.title}} </h2>
+                </div>
+                <div id="exercise-description">
+                    <p>{{ exercise.text_description|truncatechars:300 }}</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</a>
+{% endfor %}
+{% endblock %}

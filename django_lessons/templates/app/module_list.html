@@ -3,11 +3,12 @@
 <link rel="stylesheet" href="{% static 'app/css/common.css' %}"></link>
 {% block content %}
 {% for module in object_list %}
-<div class="module-card">
-    <div class="card-content">
-        <img class="module-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
-        <h2><a href="{% url 'app:exercises' module.id %}">{{ module }}</a></h2>
+<a href="{% url 'app:exercises' module.pk %}">
+    <div class="module-card">
+        <div class="card-content">
+            <h2>{{ module }}</h2>
+        </div>
     </div>
-</div>
+</a>
 {% endfor %}
 {% endblock %}

@@ -5,9 +5,11 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .forms import PasswordResetForm, SetPasswordForm, StudentAccountRegisterForm, \
                    StudentLoginForm, StudentProfileForm, InlineStudentProfileForm
-from .models import StudentUser, StudentProfile
+from .models import StudentUser, StudentProfile, Messages
 
 
 class StudentRegisterView(CreateView):
@@ -21,15 +23,27 @@ class StudentRegisterView(CreateView):
         messages.success(self.request, self.success_message)
         return response
 
-class StudentUserProfileView(UpdateView):
+class StudentProfileView(DetailView):
     template_name = 'accounts/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance, _ = StudentProfile.objects.get_or_create(user=super().get_object())
+        context['student_profile'] = instance
+        return context
+    
+    def get_queryset(self):
+        return StudentUser.objects.filter(id=self.kwargs['pk'])
+
+class StudentUserSettingsView(UpdateView):
+    template_name = 'accounts/settings.html'
     success_url = reverse_lazy('accounts:profile')
     form_class = StudentProfileForm
     success_message = _('Your account has been sucessfully updated')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        instance, _ = StudentProfile.objects.get_or_create(user=super().get_object())
+        instance = StudentProfile.objects.get(user=super().get_object())
         if self.request.POST:
             context['student_profile_form'] = InlineStudentProfileForm(self.request.POST, instance=instance)
             return context
@@ -59,7 +73,18 @@ class StudentUserProfileView(UpdateView):
             messages.success(self.request, self.success_message)
             return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
-    
+
+class MessageListView(ListView):
+    template_name = 'accounts/message_list.html'
+
+    def get_queryset(self):
+        queryset = Messages.objects.filter(student_user=self.kwargs['pk']).all()
+        return queryset
+
+class MessageDetailView(DetailView):
+    template_name = 'accounts/message_detail.html'
+    model = Messages
+
 class LoginView(views.LoginView):
     template_name = 'accounts/login.html'
     form_class = StudentLoginForm

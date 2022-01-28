@@ -3,11 +3,13 @@
 <link rel="stylesheet" href="{% static 'app/css/common.css' %}"></link>
 {% block content %}
 {% for subject in object_list %}
-<div class="subject-card">
-    <div class="card-content">
-        <img class="subject-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
-        <h2><a href="{% url 'app:modules' subject.id %}">{{ subject }}</a></h2>
+<a href="{% url 'app:modules' subject.pk %}">
+    <div class="subject-card">
+        <div class="card-content">
+            <img class="subject-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
+            <h2> {{ subject }} </h2>
+        </div>
     </div>
-</div>
+</a>
 {% endfor %}
 {% endblock %}

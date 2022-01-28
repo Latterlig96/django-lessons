@@ -1,0 +1,30 @@
+.message-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin-left: 20px;
+    width: 90%
+}
+
+.message-item {
+    background-color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+#message-timestamp {
+    position: relative;
+    left: 80%;
+    margin-bottom: 10px;
+}
+
+#message-title {
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+}
+
+#message-content p {
+    font-family: 20px;
+    font-family: "Poppins", sans-serif;
+}

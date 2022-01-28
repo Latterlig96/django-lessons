@@ -5,17 +5,18 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'app/css/index.css' %}">
         <link rel="stylesheet" href="{% static 'app/css/common.css' %}">
+        <link rel="stylesheet" href="{% static 'accounts/css/messages.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital@0;1&family=Lora:wght@500&family=Roboto+Mono:ital@1&family=Source+Sans+3:ital@1&display=swap" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="{% static 'app/js/index.js' %}"></script>
     </head>
     <body>
         <div class="page-content">
             <nav>
                 <div class="nav-left">
-                    <div class="title">NF Korepetycje</div>
+                    <div class="nav-title">NF Korepetycje</div>
                     <ul class="menu-options">
                         <li><a href="{% url 'app:index' %}">Home</a></li>
                         <li><a href="{% url 'app:contact' %}">Contact</a></li>
