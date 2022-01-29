@@ -1,1 +1,31 @@
-{{exercise.text_answear}}
+{% extends 'app/partial.html' %}
+{% block content %}
+{% load static %}
+<div class="exercise-card">
+    <div class="card-content">
+        {% if exercise.image_description.url is not null %}
+        <div class="card-image">
+            <img class="exercise-card-image" src="{% static exercise.image_description.url %}" width=300 height=300>
+        </div>
+        {% endif %}
+        <div class="exercise-info">
+            <div id="exercise-title">
+                <h2> {{exercise.title}} </h2>
+            </div>
+            <div id="exercise-description">
+                <p>{{ exercise.text_description|truncatechars:300 }}</p>
+            </div>
+            <form class="form" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Submit">
+            </form>
+            <form class="form" method="POST">
+                {% csrf_token %}
+                {{ favorites_form.as_p }}
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="favorite-button" value="Add to favorites">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'app/partial.html' %}
+{% load static %}
+{% block content %}
+<div class="message-detail-wrapper">
+    <div id="message-author">
+        <h2> {{messages.tutor_user}} <h2>
+    </div>
+    <div id="message-timestamp">
+        <p> {{messages.created_at}} </p>
+    </div>
+    <div id="message-title">
+        <h3> {{messages.title}} </h3>
+    </div>
+    <div id="message-content">
+        <p> {{messages.message}} </p>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'app/partial.html' %}
+{% block content %}
+{% load static %}
+{% for favorite in object_list %}
+<a href="{% url 'app:exercise' favorite.exercise.module.pk favorite.exercise.pk %}">
+    <div class="exercise-card">
+        <div class="card-content">
+            <div class="card-image">
+                <img class="exercise-card-image" src="{% static 'app/img/physics.jpg' %}" width=300 height=300>
+            </div>
+            <div class="exercise-info">
+                <div id="exercise-title">
+                    <h2> {{favorite.exercise.title}} </h2>
+                </div>
+                <div id="exercise-description">
+                    <p>{{ favorite.exercise.text_description|truncatechars:300 }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}

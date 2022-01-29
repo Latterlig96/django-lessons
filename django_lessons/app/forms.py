@@ -1,5 +1,6 @@
+from django import forms
 from django.forms import ModelForm
-from .models import Subject, Module, Exercise
+from .models import Favorites, Subject, Module, Exercise, Answer
 
 
 class SubjectForm(ModelForm):
@@ -18,4 +19,26 @@ class ExerciseForm(ModelForm):
 
     class Meta:
         model = Exercise
+        fields = '__all__'
+
+class AnswerForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['student'].widget = forms.HiddenInput()
+        self.fields['exercise'].widget = forms.HiddenInput()
+
+    class Meta:
+        model = Answer
+        fields = '__all__'
+
+class FavoritesForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget = forms.HiddenInput()
+    
+    class Meta:
+        model = Favorites
         fields = '__all__'

@@ -1,4 +1,3 @@
-from typing import TypeVar
 from django.contrib import messages
 from django.contrib.auth import views
 from django.urls import reverse_lazy
@@ -10,7 +9,10 @@ from django.views.generic.detail import DetailView
 from .forms import PasswordResetForm, SetPasswordForm, StudentAccountRegisterForm, \
                    StudentLoginForm, StudentProfileForm, InlineStudentProfileForm
 from .models import StudentUser, StudentProfile, Messages
+from typing import TypeVar, Dict, Any
 
+_HttpResponse = TypeVar('_HttpResponse')
+_Queryset = TypeVar('_Queryset')
 
 class StudentRegisterView(CreateView):
     template_name = 'accounts/register.html'
@@ -18,7 +20,7 @@ class StudentRegisterView(CreateView):
     form_class = StudentAccountRegisterForm
     success_message = _("Your profile was created successfully")
 
-    def form_valid(self, form: StudentAccountRegisterForm) -> TypeVar('httpResponse'):
+    def form_valid(self, form: StudentAccountRegisterForm) -> _HttpResponse:
         response = super().form_valid(form)
         messages.success(self.request, self.success_message)
         return response
@@ -26,13 +28,13 @@ class StudentRegisterView(CreateView):
 class StudentProfileView(DetailView):
     template_name = 'accounts/profile.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         instance, _ = StudentProfile.objects.get_or_create(user=super().get_object())
         context['student_profile'] = instance
         return context
     
-    def get_queryset(self):
+    def get_queryset(self) -> _Queryset:
         return StudentUser.objects.filter(id=self.kwargs['pk'])
 
 class StudentUserSettingsView(UpdateView):
@@ -41,7 +43,7 @@ class StudentUserSettingsView(UpdateView):
     form_class = StudentProfileForm
     success_message = _('Your account has been sucessfully updated')
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         instance = StudentProfile.objects.get(user=super().get_object())
         if self.request.POST:
@@ -54,17 +56,17 @@ class StudentUserSettingsView(UpdateView):
         context['student_profile_form'] = form
         return context
     
-    def get_queryset(self):
+    def get_queryset(self) -> _Queryset:
         return StudentUser.objects.filter(id=self.kwargs['pk'])
 
-    def get_initial(self):
+    def get_initial(self) -> Dict[str, Any]:
         self.initial.update({'username': self.request.user.username,
                              'email': self.request.user.email,
                              'first_name': self.request.user.first_name,
                              'last_name': self.request.user.last_name})
         return super().get_initial()
     
-    def form_valid(self, form: StudentProfileForm) -> TypeVar('httpResponse'):
+    def form_valid(self, form: StudentProfileForm) -> _HttpResponse:
         context = self.get_context_data()
         student_profile_form = context['student_profile_form']
         if form.is_valid() and student_profile_form.is_valid():
@@ -77,7 +79,7 @@ class StudentUserSettingsView(UpdateView):
 class MessageListView(ListView):
     template_name = 'accounts/message_list.html'
 
-    def get_queryset(self):
+    def get_queryset(self) -> _Queryset:
         queryset = Messages.objects.filter(student_user=self.kwargs['pk']).all()
         return queryset
 
@@ -107,7 +109,7 @@ class PasswordResetConfirmView(views.PasswordResetConfirmView):
     success_url = reverse_lazy('accounts:login')
     success_message = _('You password has been successfully reseted')
 
-    def form_valid(self, form: SetPasswordForm) -> TypeVar('httpResponse'):
+    def form_valid(self, form: SetPasswordForm) -> _HttpResponse:
         response = super().form_valid(form)
         messages.success(self.request, self.success_message)
         return response

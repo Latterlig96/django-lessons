@@ -19,8 +19,8 @@ class ModuleAdmin(admin.ModelAdmin):
 @admin.register(Exercise)
 class ExerciseAdmin(admin.ModelAdmin):
     list_display = ('module', 'title', 'image_description', 'text_description',
-                    'image_answer', 'text_answer', 'created_at')
+                    'image_answer', 'text_answer', 'is_premium', 'created_at')
     fields = ('module', 'title', 'image_description', 'text_description',
-              'image_answer', 'text_answer')
+              'image_answer', 'is_premium', 'text_answer')
     list_filter = ('created_at',)
     form = ExerciseForm

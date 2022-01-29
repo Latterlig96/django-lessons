@@ -32,8 +32,13 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(
         _('last name'), max_length=150, blank=False, null=False)
     is_student = models.BooleanField(_('is_student'), default=True)
+    is_subscriber = models.BooleanField(default=False)
 
     objects = CustomUserManager()
+
+    @property
+    def has_subscription(self) -> bool:
+        return self.is_subscriber
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

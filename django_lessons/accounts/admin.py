@@ -5,16 +5,16 @@ from .forms import StudentAccountRegisterForm, TutorAccountForm
 
 @admin.register(TutorUser)
 class TutorUsers(admin.ModelAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'email', 'is_staff')
+    list_display = ('username', 'first_name', 'last_name', 'email', 'is_staff', 'is_subscriber')
     list_filter = ('is_staff',)
-    fields = ('username', 'first_name', 'last_name', 'email', 'is_staff', 'is_student')
+    fields = ('username', 'first_name', 'last_name', 'email', 'is_staff', 'is_student', 'is_subscriber')
     form = TutorAccountForm
 
 @admin.register(StudentUser)
 class StudentUsers(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'is_student')
+    list_display = ('first_name', 'last_name', 'email', 'is_student', 'is_subscriber')
     list_filter = ('is_student',)
-    fields = ('username', 'first_name', 'last_name', 'email', 'is_student')
+    fields = ('username', 'first_name', 'last_name', 'email', 'is_student', 'is_subscriber')
     form = StudentAccountRegisterForm
 
 @admin.register(StudentProfile)

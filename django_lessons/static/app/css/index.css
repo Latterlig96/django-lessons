@@ -1,8 +1,4 @@
-html,
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: lighter;
     transition: all 0.3s ease-in-out;
