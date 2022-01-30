@@ -1,30 +1,32 @@
 from django import forms
+from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
+                                       SetPasswordForm, UserCreationForm,
+                                       UsernameField)
 from django.forms import ModelForm
 from django.forms.widgets import Input
-from django.contrib.auth.forms import AuthenticationForm, UsernameField, PasswordResetForm, SetPasswordForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from .models import StudentProfile, StudentUser, TutorUser
 
 
 class StudentAccountRegisterForm(UserCreationForm):
-    
+
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,
         widget=forms.PasswordInput(attrs={
-                                        'id': 'inputPassword',
-                                        'class': 'form-control',
-                                        'placeholder': _('Password'),
-                                        'type': 'password'}),
+            'id': 'inputPassword',
+            'class': 'form-control',
+            'placeholder': _('Password'),
+            'type': 'password'}),
     )
 
     password2 = forms.CharField(
         label=_("Password confirmation"),
         widget=forms.PasswordInput(attrs={
-                                        'id': 'inputPassword',
-                                        'class': 'form-control',
-                                        'placeholder': _('Password'),
-                                        'type': 'password'}),
+            'id': 'inputPassword',
+            'class': 'form-control',
+            'placeholder': _('Password'),
+            'type': 'password'}),
         strip=False,
     )
 
@@ -38,26 +40,27 @@ class StudentAccountRegisterForm(UserCreationForm):
         required = ('username', 'first_name', 'last_name', 'email')
         widgets = {
             'email': Input(attrs={
-                            'id': 'inputEmail',
-                            'class': 'form-control',
-                            'placeholder': _('Email address'),
-                            'type': 'email'}),
+                'id': 'inputEmail',
+                'class': 'form-control',
+                'placeholder': _('Email address'),
+                'type': 'email'}),
             'username': Input(attrs={
-                        'id': 'inputUsername',
-                        'class': 'form-control',
-                        'placeholder': _('Username'),
-                        'type': 'username'}),
+                'id': 'inputUsername',
+                'class': 'form-control',
+                'placeholder': _('Username'),
+                'type': 'username'}),
             'first_name': Input(attrs={
-                            'id': 'inputFirstName',
-                            'class': 'form-control',
-                            'placeholder': _('First name'),
-                            'type': 'first_name'}),
+                'id': 'inputFirstName',
+                'class': 'form-control',
+                'placeholder': _('First name'),
+                'type': 'first_name'}),
             'last_name':  Input(attrs={
-                            'id': 'inputLastName',
-                            'class': 'form-control',
-                            'placeholder': _('Last name'),
-                            'type': 'last_name'}),
+                'id': 'inputLastName',
+                'class': 'form-control',
+                'placeholder': _('Last name'),
+                'type': 'last_name'}),
         }
+
 
 class StudentProfileForm(forms.ModelForm):
 
@@ -65,6 +68,7 @@ class StudentProfileForm(forms.ModelForm):
         model = StudentUser
         fields = ('username', 'email', 'first_name', 'last_name')
         exclude = ('password', 'is_student')
+
 
 class InlineStudentProfileForm(forms.ModelForm):
 
@@ -79,17 +83,18 @@ class InlineStudentProfileForm(forms.ModelForm):
                             'placeholder': _('image'),
                             'type': 'image'}),
             'location':  Input(attrs={
-                            'id': 'inputLocation',
-                            'class': 'form-control',
-                            'placeholder': _('location'),
-                            'type': 'location'}),
+                'id': 'inputLocation',
+                'class': 'form-control',
+                'placeholder': _('location'),
+                'type': 'location'}),
             'phone_number':  Input(attrs={
-                            'id': 'inputPhoneNumber',
-                            'class': 'form-control',
-                            'placeholder': _('phone_number'),
-                            'type': 'phone_number'}),
+                'id': 'inputPhoneNumber',
+                'class': 'form-control',
+                'placeholder': _('phone_number'),
+                'type': 'phone_number'}),
         }
-    
+
+
 class StudentLoginForm(AuthenticationForm):
 
     username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True,
@@ -115,8 +120,9 @@ class StudentLoginForm(AuthenticationForm):
         'inactive': _("This account is inactive."),
     }
 
+
 class PasswordResetForm(PasswordResetForm):
-    
+
     email = forms.EmailField(
         label=_("Email"),
         max_length=254,
@@ -127,19 +133,20 @@ class PasswordResetForm(PasswordResetForm):
                                        'type': 'email'})
     )
 
+
 class SetPasswordForm(SetPasswordForm):
 
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
     }
-    
+
     new_password1 = forms.CharField(
         label=_("New password"),
         widget=forms.PasswordInput(attrs={
-                                        'id': 'inputPassword',
-                                        'class': 'form-control',
-                                        'placeholder': _('Password'),
-                                        'type': 'password'}),
+            'id': 'inputPassword',
+            'class': 'form-control',
+            'placeholder': _('Password'),
+            'type': 'password'}),
         strip=False,
     )
 
@@ -147,46 +154,47 @@ class SetPasswordForm(SetPasswordForm):
         label=_("Confirm password"),
         strip=False,
         widget=forms.PasswordInput(attrs={
-                                        'id': 'inputPassword',
-                                        'class': 'form-control',
-                                        'placeholder': _('Confirm password'),
-                                        'type': 'password'}),
+            'id': 'inputPassword',
+            'class': 'form-control',
+            'placeholder': _('Confirm password'),
+            'type': 'password'}),
     )
+
 
 class TutorAccountForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['is_student'].initial = False
-    
+
     class Meta:
         model = TutorUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
         required = ('username', 'first_name', 'last_name', 'email', 'password')
         widgets = {
             'password': forms.PasswordInput(attrs={
-                                                   'id': 'inputPassword',
-                                                   'class': 'form-control',
-                                                   'placeholder': _('Password'),
-                                                   'type': 'password'}),
+                'id': 'inputPassword',
+                'class': 'form-control',
+                'placeholder': _('Password'),
+                'type': 'password'}),
             'email': Input(attrs={
-                            'id': 'inputEmail',
-                            'class': 'form-control',
-                            'placeholder': _('Email address'),
-                            'type': 'email'}),
+                'id': 'inputEmail',
+                'class': 'form-control',
+                'placeholder': _('Email address'),
+                'type': 'email'}),
             'username': Input(attrs={
-                        'id': 'inputUsername',
-                        'class': 'form-control',
-                        'placeholder': _('Username'),
-                        'type': 'username'}),
+                'id': 'inputUsername',
+                'class': 'form-control',
+                'placeholder': _('Username'),
+                'type': 'username'}),
             'first_name': Input(attrs={
-                            'id': 'inputFirstName',
-                            'class': 'form-control',
-                            'placeholder': _('first name'),
-                            'type': 'first_name'}),
+                'id': 'inputFirstName',
+                'class': 'form-control',
+                'placeholder': _('first name'),
+                'type': 'first_name'}),
             'last_name':  Input(attrs={
-                            'id': 'inputLastName',
-                            'class': 'form-control',
-                            'placeholder': _('last name'),
-                            'type': 'last_name'}),
+                'id': 'inputLastName',
+                'class': 'form-control',
+                'placeholder': _('last name'),
+                'type': 'last_name'}),
         }

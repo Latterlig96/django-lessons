@@ -1,10 +1,11 @@
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
-from accounts.models import StudentUser
 from typing import TypeVar
+from accounts.models import StudentUser
+from django.db import models
+from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 _HttpResponse = TypeVar('_HttpResponse')
+
 
 class Subject(models.Model):
 
@@ -14,10 +15,12 @@ class Subject(models.Model):
         ('Physics', _('Physics'))
     ]
 
-    subject = models.CharField(verbose_name='subjects', max_length=50, choices=SUBJECT_CHOICES)
+    subject = models.CharField(
+        verbose_name='subjects', max_length=50, choices=SUBJECT_CHOICES)
 
     def __str__(self):
         return self.subject
+
 
 class Module(models.Model):
 
@@ -31,6 +34,7 @@ class Module(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Exercise(models.Model):
 
@@ -48,9 +52,10 @@ class Exercise(models.Model):
 
     def __str__(self):
         return f"Exercise {self.module}"
-    
+
     def get_absolute_url(self) -> _HttpResponse:
         return reverse_lazy('app:exercise', kwargs={'module_id': self.module.pk, 'pk': self.pk})
+
 
 class Answer(models.Model):
 
@@ -59,8 +64,9 @@ class Answer(models.Model):
     image_answer = models.ImageField(upload_to='answers', blank=True)
     text_answer = models.TextField()
 
-    def __str__(self): 
+    def __str__(self):
         return f"{self.student} answer for {self.exercise}"
+
 
 class Favorites(models.Model):
 

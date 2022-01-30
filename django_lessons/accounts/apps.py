@@ -7,4 +7,4 @@ class AccountsConfig(AppConfig):
 
     def ready(self) -> None:
         from .signals import create_tutor_profile_signal, \
-                             create_student_profile_signal
+            create_student_profile_signal

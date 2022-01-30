@@ -1,7 +1,7 @@
 {% extends 'app/partial.html' %}
 {% block content %}
 {% load static %}
-<div class="exercise-card">
+<div class="exercise-detail-card">
     <div class="card-content">
         {% if exercise.image_description.url is not null %}
         <div class="card-image">
@@ -13,7 +13,7 @@
                 <h2> {{exercise.title}} </h2>
             </div>
             <div id="exercise-description">
-                <p>{{ exercise.text_description|truncatechars:300 }}</p>
+                <p>{{ exercise.text_description}}</p>
             </div>
             <form class="form" method="POST">
                 {% csrf_token %}

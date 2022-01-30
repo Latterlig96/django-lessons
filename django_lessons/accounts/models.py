@@ -1,9 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.utils.translation import ugettext_lazy as _
-from .managers import CustomUserManager, StudentManager, TutorManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+from .managers import CustomUserManager, StudentManager, TutorManager
 
 
 class CustomUser(AbstractUser):
@@ -84,6 +84,7 @@ class TutorProfile(ProfileBase):
 
     def __str__(self):
         return self.user.username
+
 
 class Messages(models.Model):
 

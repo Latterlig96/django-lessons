@@ -1,14 +1,14 @@
+from typing import Any, Dict, TypeVar
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
-from typing import Dict, Any, TypeVar
 
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, 
-                    username: str, 
-                    email: str, 
-                    password: str, 
+    def create_user(self,
+                    username: str,
+                    email: str,
+                    password: str,
                     **extra_fields: Dict[Any, Any]) -> TypeVar('User'):
         if not email:
             raise ValueError(_('The Email must be set'))
@@ -24,8 +24,8 @@ class CustomUserManager(BaseUserManager):
                          email: str,
                          username: str,
                          first_name: str,
-                         last_name: str, 
-                         password: str, 
+                         last_name: str,
+                         password: str,
                          **extra_fields: Dict[Any, Any]) -> TypeVar('User'):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -37,18 +37,20 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
 
-        return self.create_user(username=username, 
-                                email=email, 
-                                password=password, 
-                                first_name=first_name, 
+        return self.create_user(username=username,
+                                email=email,
+                                password=password,
+                                first_name=first_name,
                                 last_name=last_name, **extra_fields)
 
+
 class StudentManager(CustomUserManager):
-    
+
     def get_queryset(self) -> TypeVar('Queryset'):
         return super().get_queryset().filter(is_student=True)
 
+
 class TutorManager(CustomUserManager):
-    
+
     def get_queryset(self) -> TypeVar('Queryset'):
         return super().get_queryset().filter(is_student=False)

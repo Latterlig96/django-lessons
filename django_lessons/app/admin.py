@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Subject, Module, Exercise
-from .forms import SubjectForm, ModuleForm, ExerciseForm
+from .forms import ExerciseForm, ModuleForm, SubjectForm
+from .models import Exercise, Module, Subject
 
 
 @admin.register(Subject)
@@ -9,12 +9,14 @@ class SubjectAdmin(admin.ModelAdmin):
     fields = ('subject',)
     form = SubjectForm
 
+
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     list_display = ('subject', 'title', 'description', 'created_at')
     fields = ('subject', 'title', 'description')
     list_filter = ('created_at',)
     form = ModuleForm
+
 
 @admin.register(Exercise)
 class ExerciseAdmin(admin.ModelAdmin):

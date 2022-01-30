@@ -1,16 +1,17 @@
+from typing import Any, Dict, Optional, TypeVar
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-from typing import TypeVar, Optional, Dict, Any
 
 
 class EmailBackend(ModelBackend):
-    pass 
+    pass
+
 
 class UsernameBackend(ModelBackend):
-    def authenticate(self, 
-                     request: TypeVar('httpRequest'), 
-                     username: Optional[str]=None, 
-                     password: str=None, 
+    def authenticate(self,
+                     request: TypeVar('httpRequest'),
+                     username: Optional[str]=None,
+                     password: str=None,
                      **kwargs: Dict[Any, Any]) -> Optional[TypeVar('User')]:
         UserModel = get_user_model()
         try:
