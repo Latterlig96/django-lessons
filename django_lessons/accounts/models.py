@@ -40,6 +40,10 @@ class CustomUser(AbstractUser):
     def has_subscription(self) -> bool:
         return self.is_subscriber
 
+    @property
+    def is_tutor(self) -> bool:
+        return True if not self.is_student else False
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 

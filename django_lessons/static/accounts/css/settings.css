@@ -1,13 +1,12 @@
 * {
     margin: 0;
-    padding: 10 10;
     font-family: "Poppins", sans-serif;
 }
 
 body {
     width: 100%;
     min-height: 100vh;
-    background-color: #c8d8e4;
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
     box-sizing: border-box;
 }
 
@@ -16,22 +15,31 @@ body {
     margin-top: 2rem;
     left: 25%;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 30%;
     background-color: #eee;
+    box-shadow: rgb(185, 238, 178);
 }
 
 .form-wrapper #inputImage {
     background-color: #fff;
     border-radius: 10px;
-    background-color:rgb(185, 238, 178);
+    padding: 5px;
     width: 40%;
+    transition: all 0.3s;
 }
 
-input{
+.form-wrapper #inputImage:hover {
+    background-color: rgb(185, 238, 178);
+}
+
+input {
     display: block;
     width: 100%;
-    overflow: hidden;
+    border-radius: 10px;
+    border-color: lime;
+    border: none;
+    padding: 10px;
 }
 
 #inputImage {
@@ -42,10 +50,12 @@ input[type=submit] {
     position: relative;
     top: 10px;
     left: 0;
+    width: 30%;
     padding: 5px 5px;
     border-radius: 6px;
     background: #fff;
     transition: all 0.3s;
+    border: none;
 }
 
 #btn:hover {

@@ -16,9 +16,9 @@
     flex-direction: column;
     align-items: center;
     background-color: #eee;
+    margin-left: 10rem;
+    width: 80%;
     margin-top: 3rem;
-    margin-left: 15rem;
-    margin-right: 15rem;
     border-radius: 20px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
     transition: all 0.2s ease-in-out;
@@ -36,30 +36,33 @@
     width: 90%;
     margin-left: 2rem;
     margin-top: 2rem;
-    padding: 10px;
+    padding: 15px;
     background-color: #fff;
     border-radius: 20px;
 }
 
 .exercise-card-image {
+    position: relative;
+    top: 5%;
     border-radius: 10px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
 }
 
 .exercise-info {
     position: relative;
-    top: 0px;
-    left: 20px;
+    left: 5px;
+    width: 95%;
 }
 
-.exercise-title {
-    font-size: 20px;
+#exercise-title {
+    font-size: 15px;
     font-family: 'Fira Sans', sans-serif;
+    width: 90%;
 }
 
 #exercise-description p {
-    width: 90%;
-    font-size: 20px;
+    width: 100%;
+    font-size: 15px;
     font-family: 'Fira Sans', sans-serif;
 }
 
@@ -75,4 +78,26 @@
 
 .subject-card-image {
     border-radius: 20px;
+}
+
+.form-wrapper input {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 10px;
+    border: none;
+    transition: all 0.3s;
+}
+
+.form-wrapper input:hover {
+    background-color: rgb(159, 240, 113);
+}
+
+.form-wrapper textarea {
+    width: 90%;
 }

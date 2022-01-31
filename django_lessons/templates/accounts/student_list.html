@@ -1,0 +1,31 @@
+{% extends 'app/partial.html' %}
+{% block content %}
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Location</th>
+                <th>Phone Number</th>
+                <th>Subscribed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in object_list %}
+            <tr>
+                <td>{{ profile.user.username }}</td>
+                <td>{{ profile.user.email }}</td>
+                <td>{{ profile.user.first_name }}</td>
+                <td>{{ profile.user.last_name }}</td>
+                <td>{{ profile.location }}</td>
+                <td>{{ profile.phone_number }}</td>
+                <td>{{ profile.user.is_subscriber }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

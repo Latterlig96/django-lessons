@@ -5,7 +5,7 @@ from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
 from django.forms import ModelForm
 from django.forms.widgets import Input
 from django.utils.translation import ugettext_lazy as _
-from .models import StudentProfile, StudentUser, TutorUser
+from .models import StudentProfile, StudentUser, TutorUser, TutorProfile
 
 
 class StudentAccountRegisterForm(UserCreationForm):
@@ -94,6 +94,36 @@ class InlineStudentProfileForm(forms.ModelForm):
                 'type': 'phone_number'}),
         }
 
+class TutorProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = TutorUser
+        fields = ('username', 'email', 'first_name', 'last_name')
+        exclude = ('password', 'is_student')
+
+class InlineTutorProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = TutorProfile
+        fields = ('image', 'location', 'phone_number')
+
+        widgets = {
+            'image':  Input(attrs={
+                            'id': 'inputImage',
+                            'class': 'form-control',
+                            'placeholder': _('image'),
+                            'type': 'image'}),
+            'location':  Input(attrs={
+                'id': 'inputLocation',
+                'class': 'form-control',
+                'placeholder': _('location'),
+                'type': 'location'}),
+            'phone_number':  Input(attrs={
+                'id': 'inputPhoneNumber',
+                'class': 'form-control',
+                'placeholder': _('phone_number'),
+                'type': 'phone_number'}),
+        }
 
 class StudentLoginForm(AuthenticationForm):
 

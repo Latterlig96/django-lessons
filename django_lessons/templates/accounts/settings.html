@@ -19,12 +19,21 @@
                             {{ field.label_tag }} {{ field }}
                         </div>
                     {% endfor %}
+                    {% if not request.user.is_tutor %}
                     {% for field in student_profile_form %}
                         <div class="field-wrapper">
                             {{ field.errors }}
                             {{ field.label_tag }} {{ field }}
                         </div>
                     {% endfor %}
+                    {% else %}
+                    {% for field in tutor_profile_form %}
+                        <div class="field-wrapper">
+                            {{ field.errors }}
+                            {{ field.label_tag }} {{ field }}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
                     <input id="btn" type="submit" value="Change">
                 </form>
             </div>

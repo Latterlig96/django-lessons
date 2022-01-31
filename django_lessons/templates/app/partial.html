@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{% static 'app/css/index.css' %}">
         <link rel="stylesheet" href="{% static 'app/css/common.css' %}">
         <link rel="stylesheet" href="{% static 'accounts/css/messages.css' %}">
+        <link rel="stylesheet" href="{% static 'accounts/css/student_list.css' %}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital@0;1&family=Lora:wght@500&family=Roboto+Mono:ital@1&family=Source+Sans+3:ital@1&display=swap" rel="stylesheet">
@@ -32,11 +33,18 @@
                     {% endif %}
                 </div>
             </nav>
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated and not request.user.is_tutor %}
             <div id="profile-menu">
                 <ul>
-                    <li><a href="{% url 'accounts:profile' request.user.pk %}">Profile</a></li>
-                    <li><a href="{% url 'accounts:logout' %}"> Log Out</a></li>
+                    <li><a href="{% url 'accounts:profile' request.user.pk %}"> Profile </a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Log Out </a></li>
+                </ul>
+            </div>
+            {% else %}
+            <div id="profile-menu">
+                <ul>
+                    <li><a href="{% url 'accounts:tutor_profile' request.user.pk %}"> Profile </a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> Log Out </a></li>
                 </ul>
             </div>
             {% endif %}

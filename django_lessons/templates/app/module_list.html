@@ -1,6 +1,5 @@
 {% extends 'app/partial.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'app/css/common.css' %}"></link>
 {% block content %}
 {% for module in object_list %}
 <a href="{% url 'app:exercises' module.pk %}">

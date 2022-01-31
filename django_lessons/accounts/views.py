@@ -9,8 +9,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from .forms import (InlineStudentProfileForm, PasswordResetForm,
                     SetPasswordForm, StudentAccountRegisterForm,
-                    StudentLoginForm, StudentProfileForm)
-from .models import Messages, StudentProfile, StudentUser
+                    StudentLoginForm, StudentProfileForm, TutorProfileForm,
+                    InlineTutorProfileForm)
+from .models import Messages, StudentProfile, StudentUser, TutorUser, TutorProfile
 
 _HttpResponse = TypeVar('_HttpResponse')
 _Queryset = TypeVar('_Queryset')
@@ -29,7 +30,7 @@ class StudentRegisterView(CreateView):
 
 
 class StudentProfileView(DetailView):
-    template_name = 'accounts/profile.html'
+    template_name = 'accounts/student_profile.html'
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -40,6 +41,7 @@ class StudentProfileView(DetailView):
 
     def get_queryset(self) -> _Queryset:
         return StudentUser.objects.filter(id=self.kwargs['pk'])
+
 
 
 class StudentUserSettingsView(UpdateView):
@@ -82,11 +84,68 @@ class StudentUserSettingsView(UpdateView):
             return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
 
+class TutorProfileView(DetailView):
+    template_name = 'accounts/tutor_profile.html'
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        instance, _ = TutorProfile.objects.get_or_create(
+            user=super().get_object())
+        context['tutor_profile'] = instance
+        return context
+
+    def get_queryset(self) -> _Queryset:
+        return TutorUser.objects.filter(id=self.kwargs['pk'])
+
+class TutorUserSettingsView(UpdateView):
+    template_name = 'accounts/settings.html'
+    success_url = reverse_lazy('accounts:tutor_profile')
+    form_class = TutorProfileForm
+    success_message = _('Your account has been sucessfully updated')
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        instance = TutorProfile.objects.get(user=super().get_object())
+        if self.request.POST:
+            context['tutor_profile_form'] = InlineTutorProfileForm(
+                self.request.POST, instance=instance)
+            return context
+        form = InlineTutorProfileForm(instance=instance,
+                                        initial={'image': instance.image,
+                                                 'location': instance.location,
+                                                 'phone_number': instance.phone_number})
+        context['tutor_profile_form'] = form
+        return context
+
+    def get_queryset(self) -> _Queryset:
+        return TutorUser.objects.filter(id=self.kwargs['pk'])
+
+    def get_initial(self) -> Dict[str, Any]:
+        self.initial.update({'username': self.request.user.username,
+                             'email': self.request.user.email,
+                             'first_name': self.request.user.first_name,
+                             'last_name': self.request.user.last_name})
+        return super().get_initial()
+
+    def form_valid(self, form: TutorProfileForm) -> _HttpResponse:
+        context = self.get_context_data()
+        tutor_profile_form = context['tutor_profile_form']
+        if form.is_valid() and tutor_profile_form.is_valid():
+            form.save()
+            tutor_profile_form.save()
+            messages.success(self.request, self.success_message)
+            return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
+        return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
 
 class MessageListView(ListView):
     template_name = 'accounts/message_list.html'
 
     def get_queryset(self) -> _Queryset:
+        if self.request.user.is_tutor:
+            queryset = Messages.objects.filter(
+                tutor_user=self.kwargs['pk']
+            ).all()
+            return queryset
         queryset = Messages.objects.filter(
             student_user=self.kwargs['pk']).all()
         return queryset
@@ -95,6 +154,13 @@ class MessageListView(ListView):
 class MessageDetailView(DetailView):
     template_name = 'accounts/message_detail.html'
     model = Messages
+
+class StudentListView(ListView):
+    template_name = 'accounts/student_list.html'
+
+    def get_queryset(self) -> _Queryset:
+        queryset = StudentProfile.objects.select_related('user').all()
+        return queryset
 
 
 class LoginView(views.LoginView):
