@@ -21,7 +21,7 @@
 
 #message-timestamp {
     position: relative;
-    left: 80%;
+    left: 50vw;
 }
 
 #message-author {
@@ -37,4 +37,33 @@
 #message-content p {
     font-family: 20px;
     font-family: "Poppins", sans-serif;
+}
+
+.message-container {
+    position: relative;
+    top: 300px;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(24, 23, 23, 0.563);
+    border-radius: 15px;
+}
+
+.message-form {
+    display: flex;
+    padding: 10px;
+    align-items: stretch;
+}
+
+.message-form label {
+    font-size: 20px;
+    color: #fff;
+}
+
+#id_title {
+    resize: none
+}
+
+#id_message {
+    resize: none;
 }

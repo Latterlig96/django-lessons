@@ -11,6 +11,7 @@
                 <th>Location</th>
                 <th>Phone Number</th>
                 <th>Subscribed</th>
+                <th>Message</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <td>{{ profile.location }}</td>
                 <td>{{ profile.phone_number }}</td>
                 <td>{{ profile.user.is_subscriber }}</td>
+                <td class="student-message"><a href="{% url 'accounts:message_form' request.user.id profile.user.id %}">Send</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,0 +1,17 @@
+{% extends 'app/partial.html' %}
+{% load static%}
+{% block content %}
+<div class="message-container">
+    <div class="form-wrapper">
+        <div class="form-content">
+            <div class="message-form">
+                <form class="form">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Send">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

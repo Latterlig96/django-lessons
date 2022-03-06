@@ -75,3 +75,12 @@ class Favorites(models.Model):
 
     def __str__(self):
         return f"Favorite exercises for student {self.student.first_name} {self.student.last_name}"
+
+class Activities(models.Model):
+
+    student = models.ForeignKey(StudentUser, on_delete=models.CASCADE)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Activities of student {self.student.first_name} {self.student.last_name}"

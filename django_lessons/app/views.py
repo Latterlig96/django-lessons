@@ -1,13 +1,14 @@
 from typing import Any, Dict, TypeVar
 
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
 from .forms import AnswerForm, FavoritesForm
-from .models import Exercise, Favorites, Module, Subject
+from .models import Exercise, Favorites, Module, Subject, Activities
 
 _Queryset = TypeVar('_Queryset')
 _HttpResponse = TypeVar('_HttpResponse')
@@ -64,18 +65,33 @@ class ExerciseDetailView(UpdateView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous:
+            messages.info(self.request, "Unauthenticated users can't see exercise content, please log in")
             return HttpResponseRedirect(reverse_lazy('app:exercises', kwargs={"module_id": self.kwargs["module_id"]}))
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs) -> _HttpResponse:
         if 'favorite-button' in self.request.POST:
-            if Favorites.objects.filter(exercise=super().get_object()).exists():
+            exercise = super().get_object()
+            activities = Activities.objects.create(
+                student=self.request.user)
+            activities.description = f"Added exercise {exercise.title} to favorites"
+            activities.save()
+            if Favorites.objects.filter(exercise=exercise).exists():
                 return super().post(request, *args, **kwargs)
             favorites_form = FavoritesForm().save(commit=False)
             favorites_form.student = self.request.user
-            favorites_form.exercise = super().get_object()
+            favorites_form.exercise = exercise
             favorites_form.save()
         return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form: AnswerForm) -> _HttpResponse:
+        exercise = super().get_object()
+        activities = Activities.objects.create(
+                student=self.request.user)
+        activities.description = f"Submitted answer for exercise {exercise.title}"
+        activities.save()
+        response = super().form_valid(form)
+        return response
 
 
 class FavoritesListView(ListView):

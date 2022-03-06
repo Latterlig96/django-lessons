@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 .sidebar {
@@ -135,4 +136,46 @@ body {
 .sidebar.active .links-name {
     opacity: 1;
     pointer-events: auto;
+}
+
+.student-profile-settings {
+    position: fixed;
+    margin-top: 20px;
+    margin-left: 150px;
+    translate: translateY(-50%);
+    height: 50%;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    line-height: 50px;
+    line-gap-override: 30px;
+}
+
+.student-profile-settings .profile-content {
+    padding: 10px;
+    display: inline-block;
+}
+
+.activities-list {
+    position: fixed;
+    margin-left: 60px;
+    bottom: 0px;
+    width: 100%;
+    background-color: rgba(121, 235, 144, 0.111);
+}
+
+.activities-list h3 {
+    margin-left: 3rem;
+    color: white;
+}
+
+table th {
+    padding-left: 15rem;
+    color: white;
+}
+
+.activities-list td {
+    padding: 10px;
+    padding-left: 15rem;
+    color: white;
 }

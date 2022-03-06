@@ -10,8 +10,9 @@ from django.views.generic.list import ListView
 from .forms import (InlineStudentProfileForm, PasswordResetForm,
                     SetPasswordForm, StudentAccountRegisterForm,
                     StudentLoginForm, StudentProfileForm, TutorProfileForm,
-                    InlineTutorProfileForm)
+                    InlineTutorProfileForm, MessageForm)
 from .models import Messages, StudentProfile, StudentUser, TutorUser, TutorProfile
+from app.models import Activities
 
 _HttpResponse = TypeVar('_HttpResponse')
 _Queryset = TypeVar('_Queryset')
@@ -36,12 +37,14 @@ class StudentProfileView(DetailView):
         context = super().get_context_data(**kwargs)
         instance, _ = StudentProfile.objects.get_or_create(
             user=super().get_object())
+        if Activities.objects.filter(student=instance.user).exists():
+            context['activities'] = Activities.objects.filter(
+                student=instance.user).order_by('created_at')[:10]
         context['student_profile'] = instance
         return context
 
     def get_queryset(self) -> _Queryset:
         return StudentUser.objects.filter(id=self.kwargs['pk'])
-
 
 
 class StudentUserSettingsView(UpdateView):
@@ -84,6 +87,7 @@ class StudentUserSettingsView(UpdateView):
             return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
 
+
 class TutorProfileView(DetailView):
     template_name = 'accounts/tutor_profile.html'
 
@@ -96,6 +100,7 @@ class TutorProfileView(DetailView):
 
     def get_queryset(self) -> _Queryset:
         return TutorUser.objects.filter(id=self.kwargs['pk'])
+
 
 class TutorUserSettingsView(UpdateView):
     template_name = 'accounts/settings.html'
@@ -111,9 +116,9 @@ class TutorUserSettingsView(UpdateView):
                 self.request.POST, instance=instance)
             return context
         form = InlineTutorProfileForm(instance=instance,
-                                        initial={'image': instance.image,
-                                                 'location': instance.location,
-                                                 'phone_number': instance.phone_number})
+                                      initial={'image': instance.image,
+                                               'location': instance.location,
+                                               'phone_number': instance.phone_number})
         context['tutor_profile_form'] = form
         return context
 
@@ -137,6 +142,7 @@ class TutorUserSettingsView(UpdateView):
             return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
 
+
 class MessageListView(ListView):
     template_name = 'accounts/message_list.html'
 
@@ -154,6 +160,20 @@ class MessageListView(ListView):
 class MessageDetailView(DetailView):
     template_name = 'accounts/message_detail.html'
     model = Messages
+
+
+class MessageFormView(CreateView):
+    template_name = 'accounts/message_form.html'
+    form_class = MessageForm
+
+    def get_initial(self) -> Dict[str, Any]:
+        student = StudentUser.objects.get(id=self.kwargs['student_id'])
+        self.initial.update({
+            'tutor_user': self.request.user,
+            'student_user': student
+        })
+        return super().get_initial()
+
 
 class StudentListView(ListView):
     template_name = 'accounts/student_list.html'

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
 from django.forms import ModelForm
 from django.forms.widgets import Input
 from django.utils.translation import ugettext_lazy as _
-from .models import StudentProfile, StudentUser, TutorUser, TutorProfile
+from .models import StudentProfile, StudentUser, TutorUser, TutorProfile, Messages
 
 
 class StudentAccountRegisterForm(UserCreationForm):
@@ -228,3 +228,14 @@ class TutorAccountForm(ModelForm):
                 'placeholder': _('last name'),
                 'type': 'last_name'}),
         }
+
+class MessageForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tutor_user'].widget = forms.HiddenInput()
+        self.fields['student_user'].widget = forms.HiddenInput()
+
+    class Meta:
+        model = Messages
+        fields = '__all__'

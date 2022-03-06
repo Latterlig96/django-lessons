@@ -11,9 +11,10 @@ body {
 }
 
 .form-wrapper {
-    position: relative;
+    position: fixed;
     margin-top: 2rem;
-    left: 25%;
+    top: 10%;
+    left: 30%;
     padding: 30px;
     border-radius: 15px;
     width: 30%;

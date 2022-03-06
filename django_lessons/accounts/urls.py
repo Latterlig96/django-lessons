@@ -13,6 +13,7 @@ urlpatterns = [
     path('profile/<pk>/messages', views.MessageListView.as_view(), name='messages'),
     path('profile/<pk>/messages/<int:message_id>',
          views.MessageDetailView.as_view(), name='message_detail'),
+    path('profile/<pk>/message/<int:student_id>', views.MessageFormView.as_view(), name='message_form'),
     path('profile/<pk>/settings/',
          views.StudentUserSettingsView.as_view(), name='settings'),
     path('tutors/<pk>/settings/', views.TutorUserSettingsView.as_view(), name='tutor_settings'),

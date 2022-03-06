@@ -69,12 +69,25 @@ nav {
     display: flex;
 }
 
+.physics #overview {
+    line-height: 35px;
+}
+
 .math {
     display: flex;
 }
 
+.math #overview {
+    line-height: 35px;
+    padding-right: 15px;
+}
+
 .chemistry {
     display: flex;
+}
+
+.chemistry #overview {
+    line-height: 35px;
 }
 
 .subject-image {
@@ -95,6 +108,8 @@ nav {
 .about {
     font-family: 'Fira Sans', sans-serif;
     font-size: 20px;
+    line-height: 35px;
+    text-align: center;
 }
 
 .about h1 {

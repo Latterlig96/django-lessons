@@ -69,5 +69,51 @@
                 </li>
             </ul>
         </div>
+        <div class="student-profile-settings">
+            <div class="profile-content">
+                <div class="image">
+                    {{student_profile.image}}
+                </div>
+                <div class="name">
+                    <p>First Name</p>
+                    {{student_profile.user.first_name}}
+                </div>
+                <div class="surname">
+                    <p>Last Name</p>
+                    {{student_profile.user.last_name}}
+                </div>
+                <div class="email">
+                    <p>Email</p>
+                    {{student_profile.user.email}}
+                </div>
+                <div class="number">
+                    <p>Phone Number</p>
+                    {{student_profile.phone_number}}
+                </div>
+            </div>
+        </div>
+        <div class="activities-plot">
+        </div>
+        <div class="activities-list">
+            <h3>Your activities:</h3>    
+            {% if activities %}
+                <table>
+                    <thead>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </thead>
+                    <tbody>
+                        {% for activity in activities %}
+                        <tr class="row-content">
+                            <td>{{activity.description}}</td>
+                            <td>{{activity.created_at}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+            <p>No activities found</p>
+            {% endif %}
+        </div>
     </body>
 </html>
