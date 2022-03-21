@@ -48,9 +48,7 @@ class ExerciseDetailView(UpdateView):
     template_name = 'app/exercise_detail.html'
 
     def get_queryset(self) -> _Queryset:
-        if self.request.user.has_subscription:
-            return Exercise.objects.all()
-        return Exercise.objects.filter(is_premium=False).all()
+        return Exercise.objects.filter(id=self.kwargs['pk'])
 
     def get_initial(self) -> Dict[str, Any]:
         self.initial.update({'student': self.request.user,
@@ -66,6 +64,9 @@ class ExerciseDetailView(UpdateView):
     def get(self, request, *args, **kwargs):
         if self.request.user.is_anonymous:
             messages.info(self.request, "Unauthenticated users can't see exercise content, please log in")
+            return HttpResponseRedirect(reverse_lazy('app:exercises', kwargs={"module_id": self.kwargs["module_id"]}))
+        if not self.request.user.has_subscription:
+            messages.info(self.request, "Users without subscription have no permissions to visit this exercise")
             return HttpResponseRedirect(reverse_lazy('app:exercises', kwargs={"module_id": self.kwargs["module_id"]}))
         return super().get(request, *args, **kwargs)
 

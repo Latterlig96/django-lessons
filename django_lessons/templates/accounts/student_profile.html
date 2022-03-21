@@ -72,23 +72,39 @@
         <div class="student-profile-settings">
             <div class="profile-content">
                 <div class="image">
-                    {{student_profile.image}}
+                    {% if student_profile.image.url is not null %}
+                        <img class="student-profile-image" src="{{ student_profile.image.url }}">
+                    {% else %}
+                        <img class="student-profile-image" src="https://mdbootstrap.com/img/new/avatars/2.jpg"/>
+                    {% endif %}
                 </div>
                 <div class="name">
                     <p>First Name</p>
-                    {{student_profile.user.first_name}}
+                    <div id="first-name">
+                        {{student_profile.user.first_name}}
+                    </div>
                 </div>
                 <div class="surname">
                     <p>Last Name</p>
-                    {{student_profile.user.last_name}}
+                    <div id="last-name">
+                     {{student_profile.user.last_name}}
+                    </div>
                 </div>
                 <div class="email">
                     <p>Email</p>
-                    {{student_profile.user.email}}
+                    <div id="email">
+                        {{student_profile.user.email}}
+                    </div>
                 </div>
                 <div class="number">
                     <p>Phone Number</p>
-                    {{student_profile.phone_number}}
+                    <div id="phone-number">
+                        {% if student_profile.phone_number %}
+                            {{student_profile.phone_number}}
+                        {% else %}
+                         Unknown
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,7 +121,7 @@
                     <tbody>
                         {% for activity in activities %}
                         <tr class="row-content">
-                            <td>{{activity.description}}</td>
+                            <td>{{activity.description|truncatechars:100}}</td>
                             <td>{{activity.created_at}}</td>
                         </tr>
                         {% endfor %}

@@ -55,5 +55,44 @@
                 </li>
             </ul>
         </div>
+        <div class="student-profile-settings">
+            <div class="profile-content">
+                <div class="image">
+                    {% if tutor_profile.image.url is not null %}
+                        <img class="student-profile-image" src="{{ tutor_profile.image.url }}">
+                    {% else %}
+                        <img class="student-profile-image" src="https://mdbootstrap.com/img/new/avatars/2.jpg"/>
+                    {% endif %}
+                </div>
+                <div class="name">
+                    <p>First Name</p>
+                    <div id="first-name">
+                        {{tutor_profile.user.first_name}}
+                    </div>
+                </div>
+                <div class="surname">
+                    <p>Last Name</p>
+                    <div id="last-name">
+                     {{tutor_profile.user.last_name}}
+                    </div>
+                </div>
+                <div class="email">
+                    <p>Email</p>
+                    <div id="email">
+                        {{tutor_profile.user.email}}
+                    </div>
+                </div>
+                <div class="number">
+                    <p>Phone Number</p>
+                    <div id="phone-number">
+                        {% if tutor_profile.phone_number %}
+                            {{tutor_profile.phone_number}}
+                        {% else %}
+                         Unknown
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

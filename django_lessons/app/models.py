@@ -40,9 +40,9 @@ class Exercise(models.Model):
 
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     title = models.TextField()
-    image_description = models.ImageField(upload_to='descriptions', blank=True)
+    image_description = models.ImageField(upload_to='descriptions', blank=True, null=True)
     text_description = models.TextField()
-    image_answer = models.ImageField(upload_to='answers', blank=True)
+    image_answer = models.ImageField(upload_to='answers', blank=True, null=True)
     text_answer = models.TextField()
     is_premium = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -82,5 +82,8 @@ class Activities(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('created_at',)
+        
     def __str__(self):
         return f"Activities of student {self.student.first_name} {self.student.last_name}"

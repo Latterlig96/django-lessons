@@ -58,7 +58,7 @@ class StudentUserSettingsView(UpdateView):
         instance = StudentProfile.objects.get(user=super().get_object())
         if self.request.POST:
             context['student_profile_form'] = InlineStudentProfileForm(
-                self.request.POST, instance=instance)
+                self.request.POST, self.request.FILES, instance=instance)
             return context
         form = InlineStudentProfileForm(instance=instance,
                                         initial={'image': instance.image,
@@ -87,7 +87,6 @@ class StudentUserSettingsView(UpdateView):
             return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:profile', kwargs={'pk': self.kwargs['pk']}))
 
-
 class TutorProfileView(DetailView):
     template_name = 'accounts/tutor_profile.html'
 
@@ -101,7 +100,6 @@ class TutorProfileView(DetailView):
     def get_queryset(self) -> _Queryset:
         return TutorUser.objects.filter(id=self.kwargs['pk'])
 
-
 class TutorUserSettingsView(UpdateView):
     template_name = 'accounts/settings.html'
     success_url = reverse_lazy('accounts:tutor_profile')
@@ -113,7 +111,7 @@ class TutorUserSettingsView(UpdateView):
         instance = TutorProfile.objects.get(user=super().get_object())
         if self.request.POST:
             context['tutor_profile_form'] = InlineTutorProfileForm(
-                self.request.POST, instance=instance)
+                self.request.POST, self.request.FILES, instance=instance)
             return context
         form = InlineTutorProfileForm(instance=instance,
                                       initial={'image': instance.image,
@@ -141,7 +139,6 @@ class TutorUserSettingsView(UpdateView):
             messages.success(self.request, self.success_message)
             return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
         return HttpResponseRedirect(reverse_lazy('accounts:tutor_profile', kwargs={'pk': self.kwargs['pk']}))
-
 
 class MessageListView(ListView):
     template_name = 'accounts/message_list.html'

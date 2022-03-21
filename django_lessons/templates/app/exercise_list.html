@@ -18,10 +18,10 @@
             </div>
             <div class="exercise-info">
                 <div id="exercise-title">
-                    <h2> {{exercise.title}} </h2>
+                    <h2> {{exercise.title|truncatechars:200}} </h2>
                 </div>
                 <div id="exercise-description">
-                    <p>{{ exercise.text_description|truncatechars:300 }}</p>
+                    <p>{{ exercise.text_description }}</p>
                 </div>
             </div>
         </div>

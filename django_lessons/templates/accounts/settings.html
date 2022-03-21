@@ -11,7 +11,7 @@
     <body>
         <div class="form-wrapper">
             <div class="form-content">
-                <form class="form" method="POST">
+                <form enctype="multipart/form-data" class="form" method="post">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="field-wrapper">
@@ -20,19 +20,19 @@
                         </div>
                     {% endfor %}
                     {% if not request.user.is_tutor %}
-                    {% for field in student_profile_form %}
-                        <div class="field-wrapper">
-                            {{ field.errors }}
-                            {{ field.label_tag }} {{ field }}
-                        </div>
-                    {% endfor %}
+                        {% for field in student_profile_form %}
+                            <div class="field-wrapper">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
                     {% else %}
-                    {% for field in tutor_profile_form %}
-                        <div class="field-wrapper">
-                            {{ field.errors }}
-                            {{ field.label_tag }} {{ field }}
-                        </div>
-                    {% endfor %}
+                        {% for field in tutor_profile_form %}
+                            <div class="field-wrapper">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
                     {% endif %}
                     <input id="btn" type="submit" value="Change">
                 </form>

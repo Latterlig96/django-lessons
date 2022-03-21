@@ -1,12 +1,17 @@
 .subject-card {
-    display: inline-grid;
-    margin-left: 8rem;
+    display: inline-block;
+    margin-left: 12vw;
     margin-top: 30px;
     text-align: center;
     background-color: #eee;
     border-radius: 20px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
     transition: all 0.2s ease-in-out;
+}
+
+.subject-card-image {
+    max-width: 350px;
+    max-height: 350px;
 }
 
 .module-card {
@@ -30,10 +35,7 @@
 
 .exercise-card .card-content {
     display: flex;
-    flex-direction: row;
-    width: 90%;
-    margin-left: 2rem;
-    margin-top: 2rem;
+    margin: 2rem 2rem 0 2rem;
     padding: 15px;
     background-color: #fff;
     border-radius: 20px;
@@ -41,7 +43,16 @@
 
 .exercise-card-image {
     position: relative;
-    width: 100%;
+    width: 350px;
+    height: 350px;
+    border-radius: 20px;
+    box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
+}
+
+.exercise-detail-card-image {
+    position: relative;
+    margin: 1rem 1rem 1rem 5rem;
+    width: 90%;
     border-radius: 20px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
 }
@@ -57,7 +68,7 @@
 #exercise-title {
     font-size: 15px;
     font-family: 'Fira Sans', sans-serif;
-    width: 90%;
+    width: 95%;
 }
 
 #exercise-description p {
@@ -69,10 +80,8 @@
 .exercise-detail-card {
     position: relative;
     background-color: #fff;
-    margin-top: 15px;
-    left: 10%;
+    margin: 1rem 1rem 1rem 1rem;
     float: left;
-    width: 80%;
     border-radius: 20px;
 }
 
@@ -100,7 +109,9 @@
 
 .form-wrapper textarea {
     position: relative;
-    width: 90%;
+    resize: none;
+    width: 95%;
+    line-height: 20px;
     border-radius: 10px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
 }

@@ -139,21 +139,41 @@ body {
 }
 
 .student-profile-settings {
-    position: fixed;
-    margin-top: 20px;
-    margin-left: 150px;
-    translate: translateY(-50%);
-    height: 50%;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    max-width: 500px;
+    top: 1rem;
+    left: calc(60px + 10%);
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: rgb(48, 48, 48);
     border-radius: 10px;
-    line-height: 50px;
-    line-gap-override: 30px;
+    line-height: 35px;
 }
 
 .student-profile-settings .profile-content {
-    padding: 10px;
     display: inline-block;
+    color: white;
+}
+
+.student-profile-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+#first-name,
+#last-name,
+#email,
+#phone-number {
+    background: rgb(68, 68, 68);
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+}
+
+#first-name:hover,
+#last-name:hover,
+#email:hover,
+#phone-number:hover {
+    background-color: rgb(118, 117, 117);
 }
 
 .activities-list {
@@ -161,7 +181,8 @@ body {
     margin-left: 60px;
     bottom: 0px;
     width: 100%;
-    background-color: rgba(121, 235, 144, 0.111);
+    height: 35vh;
+    background-color: rgb(48, 48, 48);
 }
 
 .activities-list h3 {
@@ -170,12 +191,10 @@ body {
 }
 
 table th {
-    padding-left: 15rem;
     color: white;
 }
 
 .activities-list td {
-    padding: 10px;
-    padding-left: 15rem;
+    padding-left: 8rem;
     color: white;
 }

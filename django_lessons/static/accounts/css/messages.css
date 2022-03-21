@@ -15,7 +15,7 @@
     left: 10%;
     width: 70%;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #eee;
     padding: 10px;
 }
 
@@ -26,23 +26,28 @@
 
 #message-author {
     font-size: 20px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-weight: lighter;
+    font-family: sans-serif;
 }
 
 #message-title {
     font-size: 20px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-weight: lighter;
+    font-family: sans-serif;
 }
 
 #message-content p {
     font-family: 20px;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-weight: lighter;
+    font-family: sans-serif;
 }
 
 .message-container {
-    position: relative;
-    top: 300px;
-    width: 50%;
+    position: absolute;
+    top: 400px;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(24, 23, 23, 0.563);
@@ -61,7 +66,10 @@
 }
 
 #id_title {
-    resize: none
+    resize: none;
+    font-size: 20px;
+    max-width: 100%;
+    max-height: 30px;
 }
 
 #id_message {

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
                                        SetPasswordForm, UserCreationForm,
                                        UsernameField)
 from django.forms import ModelForm
-from django.forms.widgets import Input
+from django.forms.widgets import Input, FileInput
 from django.utils.translation import ugettext_lazy as _
 from .models import StudentProfile, StudentUser, TutorUser, TutorProfile, Messages
 
@@ -77,11 +77,11 @@ class InlineStudentProfileForm(forms.ModelForm):
         fields = ('image', 'location', 'phone_number')
 
         widgets = {
-            'image':  Input(attrs={
+            'image':  FileInput(attrs={
                             'id': 'inputImage',
                             'class': 'form-control',
                             'placeholder': _('image'),
-                            'type': 'image'}),
+                            'type': 'file'}),
             'location':  Input(attrs={
                 'id': 'inputLocation',
                 'class': 'form-control',
@@ -108,11 +108,11 @@ class InlineTutorProfileForm(forms.ModelForm):
         fields = ('image', 'location', 'phone_number')
 
         widgets = {
-            'image':  Input(attrs={
+            'image':  FileInput(attrs={
                             'id': 'inputImage',
                             'class': 'form-control',
                             'placeholder': _('image'),
-                            'type': 'image'}),
+                            'type': 'file'}),
             'location':  Input(attrs={
                 'id': 'inputLocation',
                 'class': 'form-control',

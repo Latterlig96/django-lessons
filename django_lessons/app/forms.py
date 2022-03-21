@@ -1,5 +1,7 @@
 from django import forms
 from django.forms import ModelForm
+from django.forms.widgets import FileInput
+from django.utils.translation import ugettext_lazy as _
 from .models import Answer, Exercise, Favorites, Module, Subject
 
 
@@ -34,6 +36,12 @@ class AnswerForm(ModelForm):
     class Meta:
         model = Answer
         fields = '__all__'
+        widgets = {
+            'image_answer': FileInput(attrs={
+                'id': 'image_answer',
+                'placeholder': _("Image Answer")
+            })
+        }
 
 
 class FavoritesForm(ModelForm):

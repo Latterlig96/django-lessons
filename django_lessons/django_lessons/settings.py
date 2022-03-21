@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'app.apps.AppConfig',
-    'app.apps.OrderConfig',
+    'order.apps.OrderConfig',
     'livereload'
 ]
 
