@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .forms import ExerciseForm, ModuleForm, SubjectForm
 from .models import Exercise, Module, Subject
 

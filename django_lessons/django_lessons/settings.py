@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+
 from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'foo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,6 +94,10 @@ TEMPLATES = [
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Stripe
+
+STRIPE_PUBLISHABLE_KEY = ''
+STRIPE_SECRET_KEY = ''
 
 WSGI_APPLICATION = 'django_lessons.wsgi.application'
 

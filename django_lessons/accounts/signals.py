@@ -1,8 +1,11 @@
-from django.db.models.signals import post_save
 from django.contrib.auth.signals import user_logged_in
+from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import StudentProfile, StudentUser, TutorProfile, TutorUser
+
 from app.models import Activities
+
+from .models import StudentProfile, StudentUser, TutorProfile, TutorUser
+
 
 @receiver(post_save, sender=StudentUser)
 def create_student_profile_signal(sender: StudentUser,

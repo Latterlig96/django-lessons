@@ -1,10 +1,9 @@
-from typing import TypeVar
-from accounts.models import StudentUser
 from django.db import models
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-_HttpResponse = TypeVar('_HttpResponse')
+from accounts.models import StudentUser
 
 
 class Subject(models.Model):
@@ -18,7 +17,7 @@ class Subject(models.Model):
     subject = models.CharField(
         verbose_name='subjects', max_length=50, choices=SUBJECT_CHOICES)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.subject
 
 
@@ -32,7 +31,7 @@ class Module(models.Model):
     class Meta:
         ordering = ('created_at',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -50,10 +49,10 @@ class Exercise(models.Model):
     class Meta:
         ordering = ('created_at',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Exercise {self.module}"
 
-    def get_absolute_url(self) -> _HttpResponse:
+    def get_absolute_url(self) -> HttpResponse:
         return reverse_lazy('app:exercise', kwargs={'module_id': self.module.pk, 'pk': self.pk})
 
 
@@ -64,7 +63,7 @@ class Answer(models.Model):
     image_answer = models.ImageField(upload_to='answers', blank=True)
     text_answer = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.student} answer for {self.exercise}"
 
 
@@ -73,7 +72,7 @@ class Favorites(models.Model):
     student = models.ForeignKey(StudentUser, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Favorite exercises for student {self.student.first_name} {self.student.last_name}"
 
 class Activities(models.Model):
@@ -85,5 +84,5 @@ class Activities(models.Model):
     class Meta:
         ordering = ('created_at',)
         
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Activities of student {self.student.first_name} {self.student.last_name}"

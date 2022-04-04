@@ -1,6 +1,10 @@
-from typing import Any, Dict, TypeVar
+from typing import Any, Dict
+
 from django.contrib.auth.base_user import BaseUserManager
+from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
+
+from .models import CustomUser
 
 
 class CustomUserManager(BaseUserManager):
@@ -9,7 +13,7 @@ class CustomUserManager(BaseUserManager):
                     username: str,
                     email: str,
                     password: str,
-                    **extra_fields: Dict[Any, Any]) -> TypeVar('User'):
+                    **extra_fields: Dict[Any, Any]) -> CustomUser:
         if not email:
             raise ValueError(_('The Email must be set'))
         if not username:
@@ -26,7 +30,7 @@ class CustomUserManager(BaseUserManager):
                          first_name: str,
                          last_name: str,
                          password: str,
-                         **extra_fields: Dict[Any, Any]) -> TypeVar('User'):
+                         **extra_fields: Dict[Any, Any]) -> CustomUser:
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -46,11 +50,11 @@ class CustomUserManager(BaseUserManager):
 
 class StudentManager(CustomUserManager):
 
-    def get_queryset(self) -> TypeVar('Queryset'):
+    def get_queryset(self) -> QuerySet:
         return super().get_queryset().filter(is_student=True)
 
 
 class TutorManager(CustomUserManager):
 
-    def get_queryset(self) -> TypeVar('Queryset'):
+    def get_queryset(self) -> QuerySet:
         return super().get_queryset().filter(is_student=False)

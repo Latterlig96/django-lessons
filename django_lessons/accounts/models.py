@@ -3,6 +3,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+
 from .managers import CustomUserManager, StudentManager, TutorManager
 
 
@@ -44,7 +45,7 @@ class CustomUser(AbstractUser):
     def is_tutor(self) -> bool:
         return True if not self.is_student else False
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
 
@@ -78,7 +79,7 @@ class StudentProfile(ProfileBase):
 
     user = models.OneToOneField(StudentUser, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user.username
 
 
@@ -86,7 +87,7 @@ class TutorProfile(ProfileBase):
 
     user = models.OneToOneField(TutorUser, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user.username
 
 
@@ -103,5 +104,5 @@ class Messages(models.Model):
     class Meta:
         ordering = ('created_at',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Message from {self.tutor_user} to {self.student_user}"
