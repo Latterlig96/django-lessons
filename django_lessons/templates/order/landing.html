@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ product.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'order/css/order.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <div id="profile-arrow">
+      <a href="{% url 'accounts:profile' request.user.pk %}"><i class='fas fa-angle-double-left'></i></a>
+    </div>
+    <section>
+      <div class="product-container">
+          <div class="premium-photo">
+            <img src="{% static 'order/img/premium_photo.jpg' %}">
+          </div>
+          <div class="product-description">
+            <h3>{{ product.name }}</h3>
+            <div class="product-benefit">
+              <p>With premium access you grant:</p>
+              <ul>
+                <li><p>Premium access to some specially prepared exercises</p></li>
+                <li><p>Access to discuss problems with exercises with our tutors</p></li>
+                <li><p>and many many more<p></li>
+              </ul>
+            </div>
+            <h5>Price:{{ product.price }}{{ product.currency }}</h5>
+          </div>
+          <form action="{% url 'order:create-checkout-session' product.id %}" method="POST">
+              {% csrf_token %}
+          </form>
+          <button type="submit" id="checkout-button">Order</button>
+      </div>
+    </section>
+  </body>
+  <script type="text/javascript">
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+      checkoutButton.disabled = true;
+      fetch("{% url 'order:create-checkout-session' product.id %}", {
+        method: "POST",
+        headers: {
+            'X-CSRFToken': csrftoken
+        }
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+        checkoutButton.disabled = false;
+    });
+    </script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'order/css/order.css' %}">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+  <div id="profile-arrow">
+    <a href="{% url 'accounts:profile' request.user.pk %}"><i class='fas fa-angle-double-left'></i></a>
+  </div>
+  <section>
+    <div class="purchase-wrapper">
+      <div class="purchase-content">
+        <div class="purchase-photo">
+          <img src="{% static 'order/img/purchase_photo.jpg' %}">
+        </div>
+        <div class="purchase-description">
+          <p>Thank you for your interest in our product, we hope you will come back in the future and make a decision regarding its purchase</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -13,7 +13,6 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
-    background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 .card-container.card {

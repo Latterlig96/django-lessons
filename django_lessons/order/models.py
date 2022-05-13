@@ -15,14 +15,20 @@ class Product(models.Model):
     name = models.CharField(max_length=255, 
                             null=False, 
                             blank=False)
-    price = models.DecimalField()
-    currency = models.CharField(choices=CURRENCIES)
-    stripe_product_id = models.CharField(help_text="ID of a product created on the stripe site to identify product",
+    price = models.DecimalField(decimal_places=2, 
+                                max_digits=10)
+    currency = models.CharField(max_length=20,
+                                choices=CURRENCIES)
+    stripe_product_id = models.CharField(max_length=255,
+                                help_text="ID of a product created on the stripe site to identify product",
                                 null=False, 
                                 blank=False)
 
     def __str__(self) -> str:
         return f"Product {self.name}"
+
+    def get_display_price(self):
+        return self.price * Decimal(100)
 
     class Meta:
         constraints = [

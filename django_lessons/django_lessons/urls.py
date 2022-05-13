@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('app/', include('app.urls', namespace='app')),
+    path('order/', include('order.urls', namespace='order')),
     url(r'^$', IndexView.as_view(), name='home')
 ]
 

@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'app.apps.AppConfig',
     'order.apps.OrderConfig',
-    'livereload'
+    'livereload',
+    'stripe'
 ]
 
 MIDDLEWARE = [

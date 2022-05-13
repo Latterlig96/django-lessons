@@ -1,3 +1,5 @@
 Django==3.2.7
 Pillow==8.4.0
 django-phonenumber-field[phonenumberslite]
+django-livereload-server
+stripe

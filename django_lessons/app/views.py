@@ -38,7 +38,7 @@ class ExerciseListView(ListView):
             return Exercise.objects.filter(module=self.kwargs['module_id'], is_premium=False)
         if not self.request.user.has_subscription:
             return Exercise.objects.filter(module=self.kwargs['module_id'], is_premium=False)
-        return Exercise.objects.filter(module=self.kwargs['module_id'], is_premium=True)
+        return Exercise.objects.filter(module=self.kwargs['module_id']).all()
 
 
 class ExerciseDetailView(UpdateView):

@@ -1,11 +1,10 @@
-from typing import Any, Dict
+from typing import Any, Dict, TypeVar
 
 from django.contrib.auth.base_user import BaseUserManager
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 
-from .models import CustomUser
-
+_CustomUser = TypeVar('_CustomUser')
 
 class CustomUserManager(BaseUserManager):
 
@@ -13,7 +12,7 @@ class CustomUserManager(BaseUserManager):
                     username: str,
                     email: str,
                     password: str,
-                    **extra_fields: Dict[Any, Any]) -> CustomUser:
+                    **extra_fields: Dict[Any, Any]) -> _CustomUser:
         if not email:
             raise ValueError(_('The Email must be set'))
         if not username:
@@ -30,7 +29,7 @@ class CustomUserManager(BaseUserManager):
                          first_name: str,
                          last_name: str,
                          password: str,
-                         **extra_fields: Dict[Any, Any]) -> CustomUser:
+                         **extra_fields: Dict[Any, Any]) -> _CustomUser:
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
