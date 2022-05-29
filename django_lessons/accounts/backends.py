@@ -12,11 +12,13 @@ class EmailBackend(ModelBackend):
 
 
 class UsernameBackend(ModelBackend):
-    def authenticate(self,
-                     request: HttpRequest,
-                     username: Optional[str]=None,
-                     password: str=None,
-                     **kwargs: Dict[Any, Any]) -> Optional[CustomUser]:
+    def authenticate(
+        self,
+        request: HttpRequest,
+        username: Optional[str] = None,
+        password: str = None,
+        **kwargs: Dict[Any, Any]
+    ) -> Optional[CustomUser]:
         UserModel = get_user_model()
         try:
             user = UserModel.objects.get(email=username)
