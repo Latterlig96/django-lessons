@@ -22,12 +22,12 @@
                 {% for field in form %}
                     <p>{{field}}</p>
                 {% endfor %}
-                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value={% trans "Submit" %}%>
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value={% trans "Submit" %}>
             </form>
             <form class="form" method="POST">
                 {% csrf_token %}
                 {{ favorites_form.as_p }}
-                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="favorite-button" value={% trans "Add to favorites" %}> 
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="favorite-button" value={% blocktrans %} Add to favorites {% endblocktrans%}> 
             </form>
             </div>
         </div>

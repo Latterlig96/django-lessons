@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-03 11:47+0200\n"
+"POT-Creation-Date: 2022-06-03 12:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1453,7 +1453,7 @@ msgstr "Imię"
 #: templates/accounts/tutor_profile.html:32
 #: templates/accounts/tutor_profile.html:34
 msgid "User"
-msgstr "Nazwa użytkownika"
+msgstr "Profil"
 
 #: templates/accounts/student_profile.html:39
 #: templates/accounts/student_profile.html:41
@@ -1545,7 +1545,7 @@ msgid "Submit"
 msgstr "Potwierdź"
 
 #: templates/app/exercise_detail.html:30
-msgid "Add to favorites"
+msgid " Add to favorites "
 msgstr "Dodaj do ulubionych"
 
 #: templates/app/index.html:8
