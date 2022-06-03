@@ -1,6 +1,7 @@
 {% extends 'app/partial.html' %}
 {% block content %}
 {% load static %}
+{% load i18n %}
 <div class="exercise-detail-card">
     <div class="card-content">
         {% if exercise.image_description.url is not null %}
@@ -21,12 +22,12 @@
                 {% for field in form %}
                     <p>{{field}}</p>
                 {% endfor %}
-                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Submit">
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value={% trans "Submit" %}%>
             </form>
             <form class="form" method="POST">
                 {% csrf_token %}
                 {{ favorites_form.as_p }}
-                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="favorite-button" value="Add to favorites">
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="favorite-button" value={% trans "Add to favorites" %}> 
             </form>
             </div>
         </div>

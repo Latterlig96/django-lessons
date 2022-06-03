@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,100&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
@@ -21,37 +22,37 @@
                 <li>
                     <a href="{% url 'app:index' %}">
                         <i class='bx bx-home'></i>
-                        <span class="links-name">Home</span>
+                        <span class="links-name">{% trans "Home" %}</span>
                     </a>
-                    <span class="tooltip">Home</span>
+                    <span class="tooltip">{% trans "Home" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:tutor_settings' request.user.pk %}">
                         <i class='bx bx-user'></i>
-                        <span class="links-name">User</span>
+                        <span class="links-name">{% trans "User" %}</span>
                     </a>
-                    <span class="tooltip">User</span>
+                    <span class="tooltip">{% trans "User" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:students' %}">
                         <i class='bx bxs-user-account' ></i>
-                        <span class="links-name">Students</span>
+                        <span class="links-name">{% trans "Students" %}</span>
                     </a>
-                    <span class="tooltip">Students</span>
+                    <span class="tooltip">{% trans "Students" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:messages' request.user.pk %}">
                         <i class='bx bx-message-dots'></i>
-                        <span class="links-name">Messages</span>
+                        <span class="links-name">{% trans "Messages" %}</span>
                     </a>
-                    <span class="tooltip">Messages</span>
+                    <span class="tooltip">{% trans "Messages" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:logout' %}">
                         <i class='bx bx-log-out' ></i>
-                        <span class="links-name">Log out</span>
+                        <span class="links-name">{% trans "Log Out" %}</span>
                     </a>
-                    <span class="tooltip">Log out</span>
+                    <span class="tooltip">{% trans "Log Out" %}</span>
                 </li>
             </ul>
         </div>
@@ -65,30 +66,30 @@
                     {% endif %}
                 </div>
                 <div class="name">
-                    <p>First Name</p>
+                    <p>{% trans "First Name" %}</p>
                     <div id="first-name">
                         {{tutor_profile.user.first_name}}
                     </div>
                 </div>
                 <div class="surname">
-                    <p>Last Name</p>
+                    <p>{% trans "Last Name" %}</p>
                     <div id="last-name">
                      {{tutor_profile.user.last_name}}
                     </div>
                 </div>
                 <div class="email">
-                    <p>Email</p>
+                    <p>{% trans "Email" %}</p>
                     <div id="email">
                         {{tutor_profile.user.email}}
                     </div>
                 </div>
                 <div class="number">
-                    <p>Phone Number</p>
+                    <p>{% trans "Phone Number" %}</p>
                     <div id="phone-number">
                         {% if tutor_profile.phone_number %}
                             {{tutor_profile.phone_number}}
                         {% else %}
-                         Unknown
+                         {% trans "Unknown" %}
                         {% endif %}
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'app/css/index.css' %}">
         <link rel="stylesheet" href="{% static 'app/css/common.css' %}">
@@ -19,11 +20,11 @@
                 <div class="nav-left">
                     <div class="nav-title">NF Korepetycje</div>
                     <ul class="menu-options">
-                        <li><a href="{% url 'app:index' %}">Home</a></li>
-                        <li><a href="{% url 'app:contact' %}">Contact</a></li>
-                        <li><a href="{% url 'app:subjects' %}">Subjects</a></li>
+                        <li><a href="{% url 'app:index' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'app:contact' %}">{% trans "Contact" %}</a></li>
+                        <li><a href="{% url 'app:subjects' %}">{% trans "Subjects" %}</a></li>
                         {% if not request.user.is_authenticated %}
-                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        <li><a href="{% url 'accounts:login' %}">{% trans "Login" %}</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -37,15 +38,15 @@
             {% if request.user.is_authenticated and not request.user.is_tutor %}
             <div id="profile-menu">
                 <ul>
-                    <li><a href="{% url 'accounts:profile' request.user.pk %}"> Profile </a></li>
-                    <li><a href="{% url 'accounts:logout' %}"> Log Out </a></li>
+                    <li><a href="{% url 'accounts:profile' request.user.pk %}"> {% trans "Profile" %} </a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> {% trans "Log Out" %} </a></li>
                 </ul>
             </div>
             {% else %}
             <div id="profile-menu">
                 <ul>
-                    <li><a href="{% url 'accounts:tutor_profile' request.user.pk %}"> Profile </a></li>
-                    <li><a href="{% url 'accounts:logout' %}"> Log Out </a></li>
+                    <li><a href="{% url 'accounts:tutor_profile' request.user.pk %}"> {% trans "Profile" %} </a></li>
+                    <li><a href="{% url 'accounts:logout' %}"> {% trans "Log Out" %} </a></li>
                 </ul>
             </div>
             {% endif %}

@@ -1,17 +1,18 @@
 {% extends 'app/partial.html' %}
 {% block content %}
+{% load i18n %}
 <div class="container">
     <table>
         <thead>
             <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Location</th>
-                <th>Phone Number</th>
-                <th>Subscribed</th>
-                <th>Message</th>
+                <th>{% trans "Username" %}</th>
+                <th>{% trans "Email" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Surname" %}</th>
+                <th>{% trans "Location" %}</th>
+                <th>{% trans "Phone Number" %}</th>
+                <th>{% trans "Subscribed" %}</th>
+                <th>{% trans "Message" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +25,7 @@
                 <td>{{ profile.location }}</td>
                 <td>{{ profile.phone_number }}</td>
                 <td>{{ profile.user.is_subscriber }}</td>
-                <td class="student-message"><a href="{% url 'accounts:message_form' request.user.id profile.user.id %}">Send</a></td>
+                <td class="student-message"><a href="{% url 'accounts:message_form' request.user.id profile.user.id %}">{% trans "Send" %}</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 
 from accounts.models import StudentUser
+from django.utils.translation import ugettext_lazy as _
 
 
 class SupportedCurrencies(models.TextChoices):

@@ -1,6 +1,6 @@
-from django.contrib.auth.signals import user_logged_in
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import ugettext_lazy as _
 
 from app.models import Activities
 
@@ -15,7 +15,7 @@ def create_student_profile_signal(
         StudentProfile.objects.create(user=instance)
         activities = Activities.objects.create(student=instance)
         activities.description = (
-            f"Created profile for {instance.first_name} {instance.last_name}"
+            _("Created profile for %(name)s %(surname)s" % {"name": instance.first_name, "surname": instance.last_name})
         )
         activities.save()
 

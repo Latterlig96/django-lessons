@@ -2,6 +2,7 @@
 <html>
 <head>
   {% load static %}
+  {% load i18n %}
   <link rel="stylesheet" href="{% static 'order/css/order.css' %}">
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
@@ -16,8 +17,11 @@
           <img src="{% static 'order/img/purchase_photo.jpg' %}">
         </div>
         <div class="purchase-description">
-          <p>Thank you for believing in us and buying our product, your purchase is now being processed,
-              we will let you know through email about further details</p>
+          <p>{% blocktrans %} 
+              Thank you for believing in us and buying our product, your purchase is now being processed,
+              we will let you know through email about further details
+             {% endblocktrans %}
+          </p>
         </div>
       </div>
     </div>

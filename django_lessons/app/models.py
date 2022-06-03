@@ -15,9 +15,7 @@ class SupportedSubjects(models.TextChoices):
 
 class Subject(models.Model):
 
-    subject = models.CharField(
-        verbose_name="subjects", max_length=50, choices=SupportedSubjects.choices
-    )
+    subject = models.CharField(max_length=50, choices=SupportedSubjects.choices)
 
     def __str__(self) -> str:
         return self.subject
@@ -49,9 +47,7 @@ class Exercise(models.Model):
 
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     title = models.TextField()
-    image_description = models.ImageField(
-        upload_to="descriptions", blank=True, null=True
-    )
+    image_description = models.ImageField(upload_to="descriptions", blank=True, null=True)
     text_description = models.TextField()
     image_answer = models.ImageField(upload_to="answers", blank=True, null=True)
     text_answer = models.TextField()

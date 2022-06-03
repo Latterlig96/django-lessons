@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;1,100&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
@@ -21,51 +22,51 @@
                 <li>
                     <a href="{% url 'app:index' %}">
                         <i class='bx bx-home'></i>
-                        <span class="links-name">Home</span>
+                        <span class="links-name">{% trans "First Name" %}</span>
                     </a>
-                    <span class="tooltip">Home</span>
+                    <span class="tooltip">{% trans "First Name" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:settings' request.user.pk %}">
                         <i class='bx bx-user'></i>
-                        <span class="links-name">User</span>
+                        <span class="links-name">{% trans "User" %}</span>
                     </a>
-                    <span class="tooltip">User</span>
+                    <span class="tooltip">{% trans "User" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'app:subjects' %}">
                         <i class='bx bxs-briefcase' ></i>
-                        <span class="links-name">Exercise</span>
+                        <span class="links-name">{% trans "Exercise" %}</span>
                     </a>
-                    <span class="tooltip">Exercise</span>
+                    <span class="tooltip">{% trans "Exercise" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:messages' request.user.pk %}">
                         <i class='bx bx-message-dots'></i>
-                        <span class="links-name">Messages</span>
+                        <span class="links-name">{% trans "Messages" %}</span>
                     </a>
-                    <span class="tooltip">Messages</span>
+                    <span class="tooltip">{% trans "Messages" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'app:favorites' request.user.pk %}">
                         <i class='bx bx-heart' ></i>
-                        <span class="links-name">Favorite</span>
+                        <span class="links-name">{% trans "Favorite" %}</span>
                     </a>
-                    <span class="tooltip">Favorite</span>
+                    <span class="tooltip">{% trans "Favorite" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'order:product_landing' %}">
                         <i class='bx bxs-shopping-bag-alt'></i>
-                        <span class="links-name">Order</span>
+                        <span class="links-name">{% trans "Order" %}</span>
                     </a>
-                    <span class="tooltip">Order</span>
+                    <span class="tooltip">{% trans "Order" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:logout' %}">
                         <i class='bx bx-log-out' ></i>
-                        <span class="links-name">Log out</span>
+                        <span class="links-name">{% trans "Log Out" %}</span>
                     </a>
-                    <span class="tooltip">Log out</span>
+                    <span class="tooltip">{% trans "Log Out" %}</span>
                 </li>
             </ul>
         </div>
@@ -87,30 +88,30 @@
                     {% endif %}
                 </div>
                 <div class="name">
-                    <p>First Name</p>
+                    <p>{% trans "First Name" %}</p>
                     <div id="first-name">
                         {{student_profile.user.first_name}}
                     </div>
                 </div>
                 <div class="surname">
-                    <p>Last Name</p>
+                    <p>{% trans "Last Name" %}</p>
                     <div id="last-name">
                      {{student_profile.user.last_name}}
                     </div>
                 </div>
                 <div class="email">
-                    <p>Email</p>
+                    <p>{% trans "Email" %}</p>
                     <div id="email">
                         {{student_profile.user.email}}
                     </div>
                 </div>
                 <div class="number">
-                    <p>Phone Number</p>
+                    <p>{% trans "Phone Number" %}</p>
                     <div id="phone-number">
                         {% if student_profile.phone_number %}
                             {{student_profile.phone_number}}
                         {% else %}
-                         Unknown
+                         {% trans "Unknown" %}
                         {% endif %}
                     </div>
                 </div>
@@ -119,12 +120,12 @@
         <div class="activities-plot">
         </div>
         <div class="activities-list">
-            <h3>Your activities:</h3>    
+            <h3>{% trans "Your activities" %}:</h3>    
             {% if activities %}
                 <table>
                     <thead>
-                        <th>Description</th>
-                        <th>Date</th>
+                        <th>{% trans "Description" %}</th>
+                        <th>{% trans "Date" %}</th>
                     </thead>
                     <tbody>
                         {% for activity in activities %}
@@ -136,7 +137,7 @@
                     </tbody>
                 </table>
             {% else %}
-            <p>No activities found</p>
+            <p>{% trans "No activities found" %}</p>
             {% endif %}
         </div>
     </body>

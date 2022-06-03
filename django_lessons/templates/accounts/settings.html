@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,7 @@
                             </div>
                         {% endfor %}
                     {% endif %}
-                    <input id="btn" type="submit" value="Change">
+                    <input id="btn" type="submit" value={% trans "Change" %}>
                 </form>
             </div>
         </div>

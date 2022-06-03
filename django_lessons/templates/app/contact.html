@@ -1,13 +1,14 @@
 {% extends 'app/partial.html' %}
 {% load static %}
 {% block content %}
+{% load i18n %}
 <link rel="stylesheet" href="{% static 'app/css/contact.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="contact-content">
     <div class="contact-card">
         <img class="contact-image" src="{% static 'app/img/math.jpg' %}">
         <h1>XYZ</h1>
-        <p class="title">Tutor</p>
+        <p class="title">{% trans "Tutor" %}</p>
         <p>XYZ</p>
         <a class="media-link" href="#"><i class="fa fa-twitter"></i></a>
         <a class="media-link" href="#"><i class="fa fa-linkedin"></i></a>
@@ -15,11 +16,11 @@
     </div>
     <div >
         <form class="contact-form">
-            <h2>CONTACT ME</h2>
-            <p type="Name:"><input placeholder="Write your name here.."></input></p>
-            <p type="Email:"><input placeholder="Let us know how to contact you back.."></input></p>
-            <p type="Message:"><input placeholder="What would you like to tell us.."></input></p>
-            <button class="contact-send-button">Send Message</button>
+            <h2>{% trans "Contact Me" %}</h2>
+            <p type={% trans "Name:" %}><input placeholder={% blocktrans %} Write your name here {% endblocktrans %}></input></p>
+            <p type={% trans "Email:" %}><input placeholder={% blocktrans %} Let us know how to contact you back {% endblocktrans %}></input></p>
+            <p type={% trans "Message:" %}><input placeholder={% blocktrans %} What would you like to tell us {% endblocktrans %}></input></p>
+            <button class="contact-send-button">{% trans "Send Message" %}</button>
         </form>
     </div>
 </div>

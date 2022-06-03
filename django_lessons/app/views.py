@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
+from django.utils.translation import ugettext_lazy as _
 
 from .forms import AnswerForm, FavoritesForm
 from .models import Activities, Exercise, Favorites, Module, Subject
@@ -69,7 +70,7 @@ class ExerciseDetailView(UpdateView):
         if self.request.user.is_anonymous:
             messages.info(
                 self.request,
-                "Unauthenticated users can't see exercise content, please log in",
+                _("Unauthenticated users can't see exercise content, please log in"),
             )
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -79,7 +80,7 @@ class ExerciseDetailView(UpdateView):
         if not self.request.user.has_subscription:
             messages.info(
                 self.request,
-                "Users without subscription have no permissions to visit this exercise",
+                _("Users without subscription have no permissions to visit this exercise"),
             )
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -94,7 +95,7 @@ class ExerciseDetailView(UpdateView):
         if "favorite-button" in self.request.POST:
             exercise = super().get_object()
             activities = Activities.objects.create(student=self.request.user)
-            activities.description = f"Added exercise {exercise.title} to favorites"
+            activities.description = _("Added exercise %(title)s to favorites") % {"title": exercise.title}
             activities.save()
             if Favorites.objects.filter(exercise=exercise).exists():
                 return super().post(request, *args, **kwargs)
@@ -107,7 +108,7 @@ class ExerciseDetailView(UpdateView):
     def form_valid(self, form: AnswerForm) -> HttpResponse:
         exercise = super().get_object()
         activities = Activities.objects.create(student=self.request.user)
-        activities.description = f"Submitted answer for exercise {exercise.title}"
+        activities.description = _("Submitted answer for exercise %(title)s") % {"title": exercise.title}
         activities.save()
         response = super().form_valid(form)
         return response
