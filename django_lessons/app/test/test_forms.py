@@ -51,8 +51,8 @@ class TestExerciseForm(TestCase):
             "title": "TestTitle",
             "image_description": None,
             "text_description": "TestDescription",
-            "image_answer": None,
-            "text_answer": "TestAnswer",
+            "exercise_image_answer": None,
+            "exercise_text_answer": "TestAnswer",
         }
 
     def test_exercise_form(self):
@@ -85,14 +85,14 @@ class TestAnswerForm(TestCase):
             title="TestTitle",
             image_description=None,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="TestAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="TestAnswer",
         )
         self.correct_case = {
             "student": StudentUser.objects.get(username="TestUser"),
             "exercise": Exercise.objects.get(title="TestTitle"),
-            "image_answer": None,
-            "text_answer": "TestAnswer",
+            "answer_image": None,
+            "answer_text": "TestAnswer",
         }
 
     def test_answer_form(self):

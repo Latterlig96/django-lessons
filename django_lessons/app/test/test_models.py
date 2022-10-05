@@ -58,8 +58,8 @@ class TestExercise(TestCase):
             title="testTitle",
             image_description=None,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="testAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="testAnswer",
         )
         self.assertTrue(Exercise.objects.filter(title="testTitle").exists())
 
@@ -70,8 +70,8 @@ class TestExercise(TestCase):
                 title="testTitle",
                 image_description=None,
                 text_description="TestDescription",
-                image_answer=None,
-                text_answer="testAnswer",
+                exercise_image_answer=None,
+                exercise_text_answer="testAnswer",
             )
             self.assertFalse(Exercise.objects.filter(title="testTitle").exists())
 
@@ -96,38 +96,38 @@ class TestAnswer(TestCase):
             title="TestTitle",
             image_description=None,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="TestAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="TestAnswer",
         )
 
     def test_answer_model(self):
         Answer.objects.create(
             student=StudentUser.objects.get(username="TestUser"),
             exercise=Exercise.objects.get(title="TestTitle"),
-            image_answer=None,
-            text_answer="TestAnswer",
+            answer_image=None,
+            answer_text="TestAnswer",
         )
-        self.assertTrue(Answer.objects.filter(text_answer="TestAnswer").exists())
+        self.assertTrue(Answer.objects.filter(answer_text="TestAnswer").exists())
 
     def test_fail_case_asnwer_model_without_student(self):
         with self.assertRaises(IntegrityError) as context:
             Answer.objects.create(
                 student=None,
                 exercise=Exercise.objects.get(title="TestTitle"),
-                image_answer=None,
-                text_answer="TestAnswer",
+                answer_image=None,
+                answer_text="TestAnswer",
             )
-            self.assertFalse(Answer.objects.filter(text_answer="TestAnswer").exists())
+            self.assertFalse(Answer.objects.filter(answer_text="TestAnswer").exists())
 
     def test_fail_case_asnwer_model_without_exercise(self):
         with self.assertRaises(IntegrityError) as context:
             Answer.objects.create(
                 student=StudentUser.objects.get(username="TestUser"),
                 exercise=None,
-                image_answer=None,
-                text_answer="TestAnswer",
+                answer_image=None,
+                answer_text="TestAnswer",
             )
-            self.assertFalse(Answer.objects.filter(text_answer="TestAnswer").exists())
+            self.assertFalse(Answer.objects.filter(answer_text="TestAnswer").exists())
 
 
 class TestFavorites(TestCase):
@@ -150,8 +150,8 @@ class TestFavorites(TestCase):
             title="TestTitle",
             image_description=None,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="TestAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="TestAnswer",
         )
 
     def test_favorites_model(self):

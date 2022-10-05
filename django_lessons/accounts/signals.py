@@ -14,8 +14,9 @@ def create_student_profile_signal(
     if created:
         StudentProfile.objects.create(user=instance)
         activities = Activities.objects.create(student=instance)
-        activities.description = (
-            _("Created profile for %(name)s %(surname)s" % {"name": instance.first_name, "surname": instance.last_name})
+        activities.description = _(
+            "Created profile for %(name)s %(surname)s"
+            % {"name": instance.first_name, "surname": instance.last_name}
         )
         activities.save()
 

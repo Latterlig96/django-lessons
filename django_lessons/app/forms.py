@@ -34,8 +34,8 @@ class AnswerForm(ModelForm):
         model = Answer
         fields = "__all__"
         widgets = {
-            "image_answer": FileInput(
-                attrs={"id": "image_answer", "placeholder": _("Image Answer")}
+            "answer_image": FileInput(
+                attrs={"id": "answer_image", "placeholder": _("Image Answer")}
             )
         }
 

@@ -18,14 +18,7 @@ body {
 }
 
 .form-wrapper #inputImage {
-    background-color: #fff;
-    border-radius: 10px;
-    width: 100%;
-    transition: all 0.3s;
-}
-
-.form-wrapper #inputImage:hover {
-    background-color: rgb(185, 238, 178);
+    transition: all 1s;
 }
 
 input {
@@ -50,10 +43,24 @@ input[type=submit] {
     cursor: pointer;
 }
 
-input[type=file] {
-    cursor: pointer;
+p input[id=inputImage] {
+    display: none;
 }
 
-#btn:hover {
+label[for=inputImage] {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(89, 89, 125);
+    color: white;
+}
+
+label[for=inputImage]:hover {
     background: rgb(185, 238, 178);
+    transition: all 0.5s;
+}
+
+input[type=submit]:hover {
+    background: rgb(185, 238, 178);
+    transition: all 0.5s;
 }

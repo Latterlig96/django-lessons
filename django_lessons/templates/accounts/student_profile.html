@@ -48,6 +48,13 @@
                     <span class="tooltip">{% trans "Messages" %}</span>
                 </li>
                 <li>
+                    <a href="{% url 'accounts:student_answers' request.user.pk %}">
+                        <i class='bx bx-message-rounded-edit'></i>
+                        <span class="links-name">Answers</span>
+                    </a>
+                    <span class="tooltip">Answers</span>
+                </li>
+                <li>
                     <a href="{% url 'app:favorites' request.user.pk %}">
                         <i class='bx bx-heart' ></i>
                         <span class="links-name">{% trans "Favorite" %}</span>

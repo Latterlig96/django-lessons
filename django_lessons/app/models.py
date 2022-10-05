@@ -47,10 +47,14 @@ class Exercise(models.Model):
 
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     title = models.TextField()
-    image_description = models.ImageField(upload_to="descriptions", blank=True, null=True)
+    image_description = models.ImageField(
+        upload_to="descriptions", blank=True, null=True
+    )
     text_description = models.TextField()
-    image_answer = models.ImageField(upload_to="answers", blank=True, null=True)
-    text_answer = models.TextField()
+    exercise_image_answer = models.ImageField(
+        upload_to="answers", blank=True, null=True
+    )
+    exercise_text_answer = models.TextField()
     is_premium = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -70,8 +74,8 @@ class Answer(models.Model):
 
     student = models.ForeignKey(StudentUser, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    image_answer = models.ImageField(upload_to="answers", blank=True)
-    text_answer = models.TextField()
+    answer_image = models.ImageField(upload_to="answers", blank=True)
+    answer_text = models.TextField()
 
     def __str__(self) -> str:
         return f"{self.student} answer for {self.exercise}"

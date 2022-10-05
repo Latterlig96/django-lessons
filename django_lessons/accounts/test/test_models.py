@@ -3,8 +3,7 @@ from typing import Any, Dict
 from django.db.utils import IntegrityError
 from django.test import TestCase
 
-from accounts.models import (CustomUser, Messages, StudentProfile, StudentUser,
-                             TutorUser)
+from accounts.models import CustomUser, Messages, StudentProfile, StudentUser, TutorUser
 
 
 class CustomUserTest(TestCase):

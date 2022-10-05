@@ -10,6 +10,16 @@ urlpatterns = [
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path("students/", views.StudentListView.as_view(), name="students"),
     path("students/<pk>/profile", views.StudentProfileView.as_view(), name="profile"),
+    path(
+        "students/<pk>/answers",
+        views.StudentAnswersListView.as_view(),
+        name="student_answers",
+    ),
+    path(
+        "students/<pk>/answers/<int:answer_pk>",
+        views.StudentAnswersDetailView.as_view(),
+        name="student_answer_detail",
+    ),
     path("tutors/<pk>/profile", views.TutorProfileView.as_view(), name="tutor_profile"),
     path("profile/<pk>/messages", views.MessageListView.as_view(), name="messages"),
     path(

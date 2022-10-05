@@ -26,8 +26,12 @@ class CustomUser(AbstractUser):
 
     email = models.EmailField(blank=False, null=False, unique=True)
     password = models.CharField(blank=False, null=False, max_length=50)
-    first_name = models.CharField(_("first name"), max_length=150, blank=False, null=False)
-    last_name = models.CharField(_("last name"), max_length=150, blank=False, null=False)
+    first_name = models.CharField(
+        _("first name"), max_length=150, blank=False, null=False
+    )
+    last_name = models.CharField(
+        _("last name"), max_length=150, blank=False, null=False
+    )
     is_student = models.BooleanField(default=True)
     is_subscriber = models.BooleanField(default=False)
 
@@ -63,8 +67,8 @@ class TutorUser(CustomUser):
 
 class ProfileBase(models.Model):
 
-    image = models.ImageField(_("image"),upload_to="images", null=True, blank=True)
-    location = models.CharField(_("location"),max_length=30, null=True, blank=True)
+    image = models.ImageField(_("image"), upload_to="images", null=True, blank=True)
+    location = models.CharField(_("location"), max_length=30, null=True, blank=True)
     phone_number = PhoneNumberField(_("phone number"), null=True, blank=True)
 
     class Meta:
@@ -89,8 +93,12 @@ class TutorProfile(ProfileBase):
 
 class Messages(models.Model):
 
-    tutor_user = models.ForeignKey(TutorUser, on_delete=models.CASCADE, related_name="tutor_user")
-    student_user = models.ForeignKey(StudentUser, on_delete=models.CASCADE, related_name="student_user")
+    tutor_user = models.ForeignKey(
+        TutorUser, on_delete=models.CASCADE, related_name="tutor_user"
+    )
+    student_user = models.ForeignKey(
+        StudentUser, on_delete=models.CASCADE, related_name="student_user"
+    )
     title = models.TextField()
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

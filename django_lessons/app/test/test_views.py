@@ -67,8 +67,8 @@ class TestExerciseListView(TestCase):
             title="testTitle",
             image_description=file,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="testAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="testAnswer",
         )
 
     def test_exercise_list_view(self):
@@ -116,14 +116,14 @@ class TestExerciseDetailView(TestCase):
             title="testTitle",
             image_description=file,
             text_description="TestDescription",
-            image_answer=None,
-            text_answer="testAnswer",
+            exercise_image_answer=None,
+            exercise_text_answer="testAnswer",
         )
         self.answer_form = {
             "student": StudentUser.objects.get(username="TestUser"),
             "exercise": Exercise.objects.get(title="testTitle"),
-            "image_answer": "",
-            "text_answer": "SimpleTextAnswer",
+            "answer_image": "",
+            "answer_text": "SimpleTextAnswer",
         }
 
     def test_exercise_detail_view(self):
@@ -144,7 +144,7 @@ class TestExerciseDetailView(TestCase):
         response = self.client.get(
             reverse("app:exercise", kwargs={"module_id": module.id, "pk": exercise.id})
         )
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_exercise_detail_view_post(self):
         profile = StudentUser.objects.get(username="TestUser")

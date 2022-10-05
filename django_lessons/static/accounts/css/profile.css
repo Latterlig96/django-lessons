@@ -143,7 +143,7 @@ body {
     position: absolute;
     max-width: 500px;
     top: 1rem;
-    left: calc(60px + 10%);
+    left: calc(60px + 15%);
     padding: 1rem 2rem 1rem 2rem;
     background-color: rgb(48, 48, 48);
     border-radius: 10px;
@@ -157,7 +157,7 @@ body {
 
 .student-profile-image {
     border-radius: 50%;
-    width: 200px;
+    width: 220px;
     height: 200px;
 }
 
@@ -182,7 +182,7 @@ body {
     margin-left: 60px;
     bottom: 0px;
     width: 100%;
-    height: 35vh;
+    height: 20vh;
     background-color: rgb(48, 48, 48);
 }
 
@@ -193,9 +193,11 @@ body {
 
 table th {
     color: white;
+    padding-bottom: 1rem;
+    padding-left: 20rem;
 }
 
 .activities-list td {
-    padding-left: 8rem;
     color: white;
+    padding-left: 20rem;
 }

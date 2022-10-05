@@ -6,5 +6,4 @@ class AccountsConfig(AppConfig):
     name = "accounts"
 
     def ready(self) -> None:
-        from .signals import (create_student_profile_signal,
-                              create_tutor_profile_signal)
+        from .signals import create_student_profile_signal, create_tutor_profile_signal

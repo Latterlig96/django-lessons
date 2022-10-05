@@ -77,10 +77,12 @@ class ExerciseDetailView(UpdateView):
                     "app:exercises", kwargs={"module_id": self.kwargs["module_id"]}
                 )
             )
-        if not self.request.user.has_subscription:
+        if not self.request.user.has_subscription and super().get_object().is_premium:
             messages.info(
                 self.request,
-                _("Users without subscription have no permissions to visit this exercise"),
+                _(
+                    "Users without subscription have no permissions to visit this exercise"
+                ),
             )
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -95,7 +97,9 @@ class ExerciseDetailView(UpdateView):
         if "favorite-button" in self.request.POST:
             exercise = super().get_object()
             activities = Activities.objects.create(student=self.request.user)
-            activities.description = _("Added exercise %(title)s to favorites") % {"title": exercise.title}
+            activities.description = _("Added exercise %(title)s to favorites") % {
+                "title": exercise.title
+            }
             activities.save()
             if Favorites.objects.filter(exercise=exercise).exists():
                 return super().post(request, *args, **kwargs)
@@ -108,8 +112,12 @@ class ExerciseDetailView(UpdateView):
     def form_valid(self, form: AnswerForm) -> HttpResponse:
         exercise = super().get_object()
         activities = Activities.objects.create(student=self.request.user)
-        activities.description = _("Submitted answer for exercise %(title)s") % {"title": exercise.title}
+        activities.description = _("Submitted answer for exercise %(title)s") % {
+            "title": exercise.title
+        }
         activities.save()
+        answer_form = AnswerForm(self.request.POST)
+        answer_form.save()
         response = super().form_valid(form)
         return response
 

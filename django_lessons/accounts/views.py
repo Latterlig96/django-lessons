@@ -10,14 +10,20 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
-from app.models import Activities
+from app.models import Activities, Answer
 
-from .forms import (InlineStudentProfileForm, InlineTutorProfileForm,
-                    MessageForm, PasswordResetForm, SetPasswordForm,
-                    StudentAccountRegisterForm, StudentLoginForm,
-                    StudentProfileForm, TutorProfileForm)
-from .models import (Messages, StudentProfile, StudentUser, TutorProfile,
-                     TutorUser)
+from .forms import (
+    InlineStudentProfileForm,
+    InlineTutorProfileForm,
+    MessageForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    StudentAccountRegisterForm,
+    StudentLoginForm,
+    StudentProfileForm,
+    TutorProfileForm,
+)
+from .models import Messages, StudentProfile, StudentUser, TutorProfile, TutorUser
 
 
 class StudentRegisterView(CreateView):
@@ -200,8 +206,7 @@ class StudentListView(ListView):
     template_name = "accounts/student_list.html"
 
     def get_queryset(self) -> QuerySet:
-        queryset = StudentProfile.objects.select_related("user").all()
-        return queryset
+        return StudentProfile.objects.select_related("user").all()
 
 
 class LoginView(views.LoginView):
@@ -243,3 +248,18 @@ class PasswordChangeView(views.PasswordChangeView):
 
 class PasswordChangeDoneView(views.PasswordChangeDoneView):
     template_name = "accounts/password_change_done.html"
+
+
+class StudentAnswersListView(ListView):
+    template_name = "accounts/student_answers.html"
+    paginate_by = 5
+
+    def get_queryset(self) -> QuerySet:
+        return Answer.objects.filter(student=self.request.user.id).all()
+
+
+class StudentAnswersDetailView(DetailView):
+    template_name = "accounts/student_answer.html"
+
+    def get_object(self):
+        return Answer.objects.get(pk=self.kwargs["answer_pk"])

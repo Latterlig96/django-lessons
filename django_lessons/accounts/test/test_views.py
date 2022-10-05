@@ -5,6 +5,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from accounts.models import Messages, StudentUser, TutorUser
+from app.models import Subject, Module, Exercise, Answer
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class TestStudentRegisterView(TestCase):
@@ -231,3 +233,99 @@ class TestStudentListView(TestCase):
         self.client.force_login(user=profile)
         response = self.client.get(reverse("accounts:students"))
         self.assertEqual(response.status_code, HTTPStatus.OK)
+
+
+class TestStudentAnswersListView(TestCase):
+    def setUp(self):
+        small_gif = (
+            b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04"
+            b"\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02"
+            b"\x02\x4c\x01\x00\x3b"
+        )
+        file = SimpleUploadedFile("small.gif", small_gif, content_type="image/gif")
+        StudentUser.objects.create(
+            username="TestUser",
+            first_name="TestFirstName",
+            last_name="TestLastName",
+            email="teststudent@gmail.com",
+            password="testPassword",
+        )
+        Subject.objects.create(subject="Math")
+        Module.objects.create(
+            subject=Subject.objects.get(subject="Math"),
+            title="testTitle",
+            description="TestDescription",
+        )
+        Exercise.objects.create(
+            module=Module.objects.get(title="testTitle"),
+            title="TestTitle",
+            image_description=file,
+            text_description="TestDescription",
+            exercise_image_answer=None,
+            exercise_text_answer="TestAnswer",
+        )
+        Answer.objects.create(
+            student=StudentUser.objects.get(username="TestUser"),
+            exercise=Exercise.objects.get(title="TestTitle"),
+            answer_image=None,
+            answer_text="TestAnswer",
+        )
+
+    def test_get_exercise_list(self):
+        profile = StudentUser.objects.get(username="TestUser")
+        self.client.force_login(user=profile)
+        response = self.client.get(
+            reverse("accounts:student_answers", kwargs={"pk": profile.id})
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "accounts/student_answers.html")
+
+
+class TestStudentAnswersListView(TestCase):
+    def setUp(self):
+        small_gif = (
+            b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04"
+            b"\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02"
+            b"\x02\x4c\x01\x00\x3b"
+        )
+        file = SimpleUploadedFile("small.gif", small_gif, content_type="image/gif")
+        StudentUser.objects.create(
+            username="TestUser",
+            first_name="TestFirstName",
+            last_name="TestLastName",
+            email="teststudent@gmail.com",
+            password="testPassword",
+        )
+        Subject.objects.create(subject="Math")
+        Module.objects.create(
+            subject=Subject.objects.get(subject="Math"),
+            title="testTitle",
+            description="TestDescription",
+        )
+        Exercise.objects.create(
+            module=Module.objects.get(title="testTitle"),
+            title="TestTitle",
+            image_description=file,
+            text_description="TestDescription",
+            exercise_image_answer=None,
+            exercise_text_answer="TestAnswer",
+        )
+        Answer.objects.create(
+            student=StudentUser.objects.get(username="TestUser"),
+            exercise=Exercise.objects.get(title="TestTitle"),
+            answer_image=None,
+            answer_text="TestAnswer",
+        )
+
+    def test_get_exercise_detail(self):
+        profile = StudentUser.objects.get(username="TestUser")
+        answer = Answer.objects.get(answer_text="TestAnswer")
+        self.client.force_login(user=profile)
+        response = self.client.get(
+            reverse(
+                "accounts:student_answer_detail",
+                kwargs={"pk": profile.id, "answer_pk": answer.id},
+            )
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, "accounts/student_answer.html")

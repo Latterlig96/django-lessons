@@ -1,0 +1,43 @@
+{% extends 'app/partial.html' %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+<div class="exercise-detail-card">
+    <div class="card-content">
+        {% if answer.exercise.image_description.url is not null %}
+        <div class="card-image">
+            <img class="exercise-detail-card-image" src="{{ answer.exercise.image_description.url }}">
+        </div>
+        {% endif %}
+        <div class="exercise-info">
+            <div id="exercise-title">
+                <h2> {{answer.exercise.title}} </h2>
+            </div>
+            <div id="exercise-description">
+                <p>{{ answer.exercise.text_description}}</p>
+            </div>
+            {% if answer.image_answer.url is not null %}
+                <div class="answer-image">
+                    <img class="exercise-detail-card-image" src="{{ answer.answer_image.url }}">
+                </div>
+            {% endif %}
+            <div id="answer-text">
+                <h3>Your answer</h3>
+                <p>{{ answer.answer_text }}</p>
+            </div>
+            <div id="correct-answer-description">
+                <h3>Correct answer</h3>
+                {% if answer.exercise.exercise_image_answer.url is not null %}
+                    <h3>Answer Image</h3>
+                    <div class="card-image">
+                        <img class="exercise-detail-card-image" src="{{ answer.exercise.exercise_image_answer.url }}">
+                    </div>
+                {% endif %}
+                <h3>Answer description</h3>
+                <p>{{ answer.exercise.exercise_text_answer }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

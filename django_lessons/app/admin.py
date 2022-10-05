@@ -26,8 +26,8 @@ class ExerciseAdmin(admin.ModelAdmin):
         "title",
         "image_description",
         "text_description",
-        "image_answer",
-        "text_answer",
+        "exercise_image_answer",
+        "exercise_text_answer",
         "is_premium",
         "created_at",
     )
@@ -36,9 +36,9 @@ class ExerciseAdmin(admin.ModelAdmin):
         "title",
         "image_description",
         "text_description",
-        "image_answer",
+        "exercise_image_answer",
         "is_premium",
-        "text_answer",
+        "exercise_text_answer",
     )
     list_filter = ("created_at",)
     form = ExerciseForm

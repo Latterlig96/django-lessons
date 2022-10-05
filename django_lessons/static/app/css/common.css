@@ -1,6 +1,6 @@
 .subject-card {
     display: inline-block;
-    margin-left: 12vw;
+    margin-left: 9vw;
     margin-top: 30px;
     text-align: center;
     background-color: #eee;
@@ -43,10 +43,9 @@
 
 .exercise-card-image {
     position: relative;
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
     border-radius: 20px;
-    box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
 }
 
 .exercise-detail-card-image {
@@ -72,7 +71,7 @@
 }
 
 #exercise-description p {
-    width: 100%;
+    width: 90%;
     font-size: 15px;
     font-family: 'Fira Sans', sans-serif;
 }
@@ -114,4 +113,29 @@
     line-height: 20px;
     border-radius: 10px;
     box-shadow: 0px -5px 60px 10px rgba(0, 0, 0, 0.07);
+}
+
+input[id=answer_image] {
+    display: none;
+}
+
+label[for=answer_image] {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(133, 133, 244);
+    cursor: pointer;
+}
+
+label[for=answer_image]:hover {
+    background: rgb(185, 238, 178);
+    transition: all 0.5s;
+}
+
+#answer-text {
+    padding: 20px;
+    width: 90%;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background-color: rgb(191, 191, 248);
 }
