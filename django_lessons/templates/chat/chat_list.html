@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'chat/css/common.css' %}">
+    </head>
+    <body>
+        <table class="rooms-list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Room name</th>
+                    <th>Connect</th>
+                </tr>
+            </thead>
+            {% for room in object_list %}
+                <tr id="room-spec">
+                    <td id="room-id">{{ forloop.counter }}.</td>
+                    <td id="room-name">{{ room.room_name }}</td>
+                    <td id="room-connect"><a href={% url "chat:chat_room" room.id room.room_name %}>Connect to room</a></td>
+                </tr>
+            {% endfor %}
+            {% if request.user.is_tutor %}
+            <tr>
+                <td id="room-create"> <a href={% url "chat:room_create" %}>Create new Room</a></td>
+            </tr>
+            {% endif %}                
+        </table>
+    </body>
+</html>

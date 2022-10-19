@@ -26,6 +26,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls", namespace="accounts")),
     path("app/", include("app.urls", namespace="app")),
     path("order/", include("order.urls", namespace="order")),
+    path("chat/", include("chat.urls", namespace="chat")),
     url(r"^$", IndexView.as_view(), name="home"),
 ]
 

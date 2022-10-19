@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charest="utf-8">
+</head>
+    <body>
+        <div class="container">
+            <h2>{{ view.kwargs.room_name }}</h2>
+            <textarea id="log" cols="100" rows="20"></textarea><br>
+            <h5>Enter your chats here</h5>
+            <input id="msg" type="text" size="100" placeholder="Your message goes here..."><br><br>
+            <input id="submit" type="button" value="Send">
+        </div>        
+    </body>
+    <script>
+        const roomName = "{{ view.kwargs.room_name|safe|escape }}"
+        const chatSocket = new WebSocket(
+            "ws://" + window.location.host + "/ws/chat/" + roomName
+        )
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data)
+            document.querySelector("#log").value += (data.user + ":" + data.message + "\n");
+        };
+        chatSocket.onclose = function(e) {
+            console.error("Closing chat");
+        };
+        document.querySelector("#submit").onclick = function(e) {
+            const messageDom = document.querySelector("#msg");
+            const message = messageDom.value;
+            chatSocket.send(JSON.stringify(
+                {
+                    "user": "{{ request.user|safe|escape }}",
+                    "message": message
+                }
+            ));
+            messageDom.value = '';
+        }
+    </script>
+</html>

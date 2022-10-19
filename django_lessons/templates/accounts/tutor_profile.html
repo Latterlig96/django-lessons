@@ -41,6 +41,13 @@
                     <span class="tooltip">{% trans "Students" %}</span>
                 </li>
                 <li>
+                    <a href="{% url 'chat:rooms' %}">
+                        <i class='bx bxs-door-open'></i>
+                        <span class="links-name">Chat Rooms</span>
+                    </a>
+                    <span class="tooltip">Rooms</span>
+                </li>
+                <li>
                     <a href="{% url 'accounts:messages' request.user.pk %}">
                         <i class='bx bx-message-dots'></i>
                         <span class="links-name">{% trans "Messages" %}</span>

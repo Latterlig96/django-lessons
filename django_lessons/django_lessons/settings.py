@@ -57,8 +57,10 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "app.apps.AppConfig",
     "order.apps.OrderConfig",
+    "chat.apps.ChatConfig",
     "livereload",
     "stripe",
+    "channels"
 ]
 
 MIDDLEWARE = [
@@ -100,6 +102,7 @@ if DEBUG:
 STRIPE_PUBLISHABLE_KEY = ""
 STRIPE_SECRET_KEY = ""
 
+ASGI_APPLICATION = "django_lessons.asgi.application"
 WSGI_APPLICATION = "django_lessons.wsgi.application"
 
 
@@ -113,6 +116,19 @@ DATABASES = {
     }
 }
 
+# Channel layers
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+            "hosts": [('127.0.0.1', 6379)]
+        }
+    },
+    "test": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

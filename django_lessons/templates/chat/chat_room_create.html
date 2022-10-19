@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'accounts/app/common.css' %}">
+    </head>
+    <body>
+        <div class="form-wrapper">
+            <div class="form-content">
+                <form enctype="multipart/form-data" class="form" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input id="btn" type="submit" value="Create">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
