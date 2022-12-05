@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: rgb(0, 0, 0);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.room-name {
+    position: relative;
+    margin: 1rem;
+    left: 40%;
+    font-size: 40px;
+    color: white;
+}
+
+.container .chat-content textarea {
+    resize: none;
+    border-radius: 5px;
+}
+
+.container .chat-content #message-info {
+    font-size: 30px;
+    color: white;
+}
+
+.container .chat-content #message-text {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;    
+}
+
+input[id=submit] {
+    display: none;
+}
+
+label[for=submit] {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(192, 192, 192);
+    cursor: pointer;
+}
+

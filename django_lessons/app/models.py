@@ -1,9 +1,11 @@
+from accounts.models import StudentUser
 from django.db import models
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.db.models import QuerySet
 from django.utils.translation import ugettext_lazy as _
-
-from accounts.models import StudentUser
+from django.db.models.functions import ExtractDay, ExtractMonth
+from django.db.models import Count
 
 
 class SupportedSubjects(models.TextChoices):
@@ -103,3 +105,25 @@ class Activities(models.Model):
         return (
             f"Activities of student {self.student.first_name} {self.student.last_name}"
         )
+        
+    @classmethod
+    def get_monthly_activities(cls, student: StudentUser) -> QuerySet:
+        return cls.objects\
+            .filter(student=student)\
+            .annotate(month=ExtractMonth("created_at"))\
+            .values("month")\
+            .annotate(count=Count("month"))\
+            .order_by("month")\
+            .values("month", "count")\
+            .get() # type: ignore
+
+    @classmethod
+    def get_daily_activities(cls, student: StudentUser) -> QuerySet:
+        return cls.objects\
+            .filter(student=student)\
+            .annotate(day=ExtractDay("created_at"))\
+            .values("day")\
+            .annotate(count=Count("day"))\
+            .order_by("day")\
+            .values("day", "count")\
+            .get() # type: ignore

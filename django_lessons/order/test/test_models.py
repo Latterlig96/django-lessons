@@ -1,7 +1,6 @@
+from accounts.models import StudentUser
 from django.db.utils import IntegrityError
 from django.test import TestCase
-
-from accounts.models import StudentUser
 from order.models import Order, Product
 
 

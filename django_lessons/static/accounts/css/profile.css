@@ -76,7 +76,6 @@ body {
     width: 140px;
     margin: 0 5px;
     list-style: none;
-    line-height: 50px;
     border-radius: 12px;
 }
 
@@ -109,7 +108,7 @@ body {
 }
 
 .sidebar ul li a {
-    color: #fff;
+    color: #ffffff;
     display: flex;
     align-items: center;
     text-decoration: none;

@@ -1,8 +1,7 @@
-from django.test import TestCase
-
 from accounts.models import StudentUser
 from app.forms import AnswerForm, ExerciseForm, ModuleForm, SubjectForm
 from app.models import Exercise, Module, Subject
+from django.test import TestCase
 
 
 class TestSubjectForm(TestCase):

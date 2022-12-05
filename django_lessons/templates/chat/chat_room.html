@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
     <meta charest="utf-8">
+    <link rel="stylesheet" href="{% static 'chat/css/chat_room.css' %}">
 </head>
     <body>
-        <div class="container">
+        <div class="room-name">
             <h2>{{ view.kwargs.room_name }}</h2>
-            <textarea id="log" cols="100" rows="20"></textarea><br>
-            <h5>Enter your chats here</h5>
-            <input id="msg" type="text" size="100" placeholder="Your message goes here..."><br><br>
-            <input id="submit" type="button" value="Send">
+        </div>
+        <div class="container">
+            <div class="chat-content">
+                <textarea id="log" cols="120" rows="20" readonly></textarea><br>
+                <h5 id="message-info">Enter your message here</h5>
+                <input id="message-text" type="text" size="100" placeholder="Your message..."><br><br>
+                <label for="submit">Send</label>
+                <input id="submit" type="button" value="Send">
+            </div>
         </div>        
     </body>
     <script>
         const roomName = "{{ view.kwargs.room_name|safe|escape }}"
-        const chatSocket = new WebSocket(
-            "ws://" + window.location.host + "/ws/chat/" + roomName
-        )
+        const chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName)
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data)
-            document.querySelector("#log").value += (data.user + ":" + data.message + "\n");
+            document.querySelector("#log").append((data.user + ":" + data.message + "\n"));
         };
         chatSocket.onclose = function(e) {
             console.error("Closing chat");
         };
         document.querySelector("#submit").onclick = function(e) {
-            const messageDom = document.querySelector("#msg");
+            const messageDom = document.querySelector("#message-text");
             const message = messageDom.value;
             chatSocket.send(JSON.stringify(
                 {
@@ -34,6 +39,12 @@
                 }
             ));
             messageDom.value = '';
+        }
+        document.querySelector("input").onkeypress = function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.querySelector("#submit").click();
+            }
         }
     </script>
 </html>

@@ -19,9 +19,7 @@ class CustomUser(AbstractUser):
         max_length=150,
         unique=True,
         validators=[username_validator],
-        error_messages={
-            "unique": _("A user with that username already exists."),
-        },
+        error_messages={"unique": _("A user with that username already exists."),},
     )
 
     email = models.EmailField(blank=False, null=False, unique=True)
@@ -83,6 +81,7 @@ class StudentProfile(ProfileBase):
         return self.user.username
 
 
+
 class TutorProfile(ProfileBase):
 
     user = models.OneToOneField(TutorUser, on_delete=models.CASCADE)
@@ -104,7 +103,7 @@ class Messages(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ("created_at",)
+        ordering = ("-created_at",)
 
     def __str__(self) -> str:
         return f"Message from {self.tutor_user} to {self.student_user}"

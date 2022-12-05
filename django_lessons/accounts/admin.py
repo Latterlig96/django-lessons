@@ -6,7 +6,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 from .forms import StudentAccountRegisterForm, TutorAccountForm
-from .models import Messages, StudentProfile, StudentUser, TutorProfile, TutorUser
+from .models import (Messages, StudentProfile, StudentUser, TutorProfile,
+                     TutorUser)
 
 
 @admin.register(TutorUser)

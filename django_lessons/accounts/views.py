@@ -1,5 +1,6 @@
 from typing import Any, Dict
 
+from app.models import Activities, Answer
 from django.contrib import messages
 from django.contrib.auth import views
 from django.db.models.query import QuerySet
@@ -10,20 +11,12 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
-from app.models import Activities, Answer
-
-from .forms import (
-    InlineStudentProfileForm,
-    InlineTutorProfileForm,
-    MessageForm,
-    PasswordResetForm,
-    SetPasswordForm,
-    StudentAccountRegisterForm,
-    StudentLoginForm,
-    StudentProfileForm,
-    TutorProfileForm,
-)
-from .models import Messages, StudentProfile, StudentUser, TutorProfile, TutorUser
+from .forms import (InlineStudentProfileForm, InlineTutorProfileForm,
+                    MessageForm, PasswordResetForm, SetPasswordForm,
+                    StudentAccountRegisterForm, StudentLoginForm,
+                    StudentProfileForm, TutorProfileForm)
+from .models import (Messages, StudentProfile, StudentUser, TutorProfile,
+                     TutorUser)
 
 
 class StudentRegisterView(CreateView):
@@ -200,6 +193,16 @@ class MessageFormView(CreateView):
         student = StudentUser.objects.get(id=self.kwargs["student_id"])
         self.initial.update({"tutor_user": self.request.user, "student_user": student})
         return super().get_initial()
+
+    def form_valid(self, form: MessageForm) -> HttpResponse:
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(
+                reverse_lazy("accounts:tutor_profile", kwargs={"pk": self.kwargs["pk"]})
+            )
+        return HttpResponseRedirect(
+            reverse_lazy("accounts:tutor_profile", kwargs={"pk": self.kwargs["pk"]})
+        )
 
 
 class StudentListView(ListView):

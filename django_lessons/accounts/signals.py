@@ -1,8 +1,7 @@
+from app.models import Activities
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-
-from app.models import Activities
 
 from .models import StudentProfile, StudentUser, TutorProfile, TutorUser
 

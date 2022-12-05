@@ -12,7 +12,7 @@
     <body>
         <div class="form-wrapper">
             <div class="form-content">
-                <form enctype="multipart/form-data" class="form" method="post">
+                <form enctype="multipart/form-data" class="form" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     {% if not request.user.is_tutor %}

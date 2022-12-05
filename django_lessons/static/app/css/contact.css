@@ -81,7 +81,7 @@ p:before {
     transition: all .3s
 }
 
-button:hover {
-    background: #78788c;
+.contact-send-button:hover {
+    background: #595967;
     color: #fff
 }

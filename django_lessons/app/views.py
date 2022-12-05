@@ -1,15 +1,19 @@
 from typing import Any, Dict
 
+from django.conf import settings
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
-from django.utils.translation import ugettext_lazy as _
 
-from .forms import AnswerForm, FavoritesForm
+from .forms import AnswerForm, ContactForm, FavoritesForm
 from .models import Activities, Exercise, Favorites, Module, Subject
 
 
@@ -17,8 +21,29 @@ class IndexView(TemplateView):
     template_name = "app/index.html"
 
 
-class ContactView(TemplateView):
+@method_decorator(csrf_exempt, name="dispatch")
+class ContactView(TemplateView, RedirectView):
     template_name = "app/contact.html"
+    default_subject = "Contact from %s"
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context["contact_form"] = ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            send_mail(
+                self.default_subject.format(data["name"]),
+                data["message"],
+                data["email"],
+                [settings.DEFAULT_GLOBAL_MAIL],
+            )
+            return self.render_to_response(context)
+        return self.render_to_response(context)
 
 
 class SubjectsListView(ListView):

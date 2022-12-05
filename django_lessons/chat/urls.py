@@ -1,16 +1,20 @@
 from django.urls import path
-from django.conf.urls import url
 
-from . import views
-from . import consumers
+from . import consumers, views
 
 app_name = "chat"
 
 urlpatterns = [
     path("rooms/", views.ChatRoomListView.as_view(), name="rooms"),
     path("room/create/", views.ChatRoomCreateView.as_view(), name="room_create"),
-    path("room/student/<int:pk>", views.StudentChatRoomView.as_view(), name="student_chat_room"),
-    path("room/<int:pk>/<str:room_name>", views.ChatRoomView.as_view(), name="chat_room")
+    path(
+        "room/student/<int:pk>",
+        views.StudentChatRoomView.as_view(),
+        name="student_chat_room",
+    ),
+    path(
+        "room/<int:pk>/<str:room_name>", views.ChatRoomView.as_view(), name="chat_room"
+    ),
 ]
 
 websocket_url_patterns = [

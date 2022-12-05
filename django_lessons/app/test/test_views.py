@@ -1,11 +1,10 @@
 from http import HTTPStatus
 
+from accounts.models import StudentUser
+from app.models import Exercise, Module, Subject, Favorites
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
-
-from accounts.models import StudentUser
-from app.models import Exercise, Module, Subject
 
 
 class TestIndexView(TestCase):
@@ -15,8 +14,20 @@ class TestIndexView(TestCase):
 
 
 class TestContactView(TestCase):
-    def test_index_view(self):
+
+    def setUp(self):
+        self.contact_form = {
+            "name": "TestUser",
+            "email": "testuser@gmail.com",
+            "message": "TestMessage"
+        }
+
+    def test_contact_view(self):
         response = self.client.get(reverse("app:contact"))
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_contact_view_send_contact_message(self):
+        response = self.client.post(reverse("app:contact"), data=self.contact_form)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
@@ -27,7 +38,6 @@ class TestSubjectListView(TestCase):
     def test_subject_list_view(self):
         response = self.client.get(reverse("app:subjects"))
         self.assertEqual(response.status_code, HTTPStatus.OK)
-
 
 class TestModuleListView(TestCase):
     def setUp(self):
@@ -169,7 +179,7 @@ class TestExerciseDetailView(TestCase):
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
-    def test_exercise_detail_view_post_without_excersise(self):
+    def test_exercise_detail_view_post_without_excercise(self):
         self.answer_form.update({"exercise": ""})
         profile = StudentUser.objects.get(username="TestUser")
         self.client.force_login(user=profile)
@@ -178,5 +188,58 @@ class TestExerciseDetailView(TestCase):
         response = self.client.post(
             reverse("app:exercise", kwargs={"module_id": module.id, "pk": exercise.id}),
             data=self.answer_form,
+        )
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+class TestFavoriteListView(TestCase):
+    def setUp(self):
+        small_gif = (
+            b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04"
+            b"\x01\x0a\x00\x01\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02"
+            b"\x02\x4c\x01\x00\x3b"
+        )
+
+        file = SimpleUploadedFile("small.gif", small_gif, content_type="image/gif")
+
+        StudentUser.objects.create(
+            username="TestUser",
+            first_name="TestFirstName",
+            last_name="TestLastName",
+            email="teststudent@gmail.com",
+            password="testPassword",
+            is_subscriber=True,
+        )
+        StudentUser.objects.create(
+            username="TestUserWithoutSubscription",
+            first_name="TestFirstName",
+            last_name="TestLastName",
+            email="teststudentwithoutsubscription@gmail.com",
+            password="testPassword",
+            is_subscriber=False,
+        )
+        Subject.objects.create(subject="Math")
+        Module.objects.create(
+            subject=Subject.objects.get(subject="Math"),
+            title="testTitle",
+            description="testDescription",
+        )
+        Exercise.objects.create(
+            module=Module.objects.get(title="testTitle"),
+            title="testTitle",
+            image_description=file,
+            text_description="TestDescription",
+            exercise_image_answer=None,
+            exercise_text_answer="testAnswer",
+        )
+        Favorites.objects.create(
+            student=StudentUser.objects.get(username="TestUserWithoutSubscription"),
+            exercise=Exercise.objects.get(title="testTitle"))
+    
+    def test_favorites_view(self):
+        profile = StudentUser.objects.get(username="TestUserWithoutSubscription")
+        self.client.force_login(user=profile)
+        exercise = Exercise.objects.get(title="testTitle")
+        response = self.client.get(
+            reverse("app:favorites", kwargs={"pk": exercise.id})
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)

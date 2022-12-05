@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, TypeVar
+from typing import Any, Dict, Optional
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend

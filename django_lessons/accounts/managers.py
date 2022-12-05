@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 
+
 _CustomUser = TypeVar("_CustomUser")
 
 
@@ -53,7 +54,6 @@ class CustomUserManager(BaseUserManager):
 class StudentManager(CustomUserManager):
     def get_queryset(self) -> QuerySet:
         return super().get_queryset().filter(is_student=True)
-
 
 class TutorManager(CustomUserManager):
     def get_queryset(self) -> QuerySet:

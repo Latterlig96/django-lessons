@@ -48,6 +48,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,7 +61,7 @@ INSTALLED_APPS = [
     "chat.apps.ChatConfig",
     "livereload",
     "stripe",
-    "channels"
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,8 @@ TEMPLATES = [
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+DEFAULT_GLOBAL_MAIL = ""
+
 # Stripe
 
 STRIPE_PUBLISHABLE_KEY = ""
@@ -113,17 +116,20 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    },
+    "test": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3"
     }
 }
+
 
 # Channel layers
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": 'channels_redis.core.RedisChannelLayer',
-        "CONFIG": {
-            "hosts": [('127.0.0.1', 6379)]
-        }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
     },
     "test": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
@@ -137,15 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 

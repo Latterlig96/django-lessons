@@ -1,8 +1,7 @@
+from accounts.models import StudentUser
+from app.models import Answer, Exercise, Favorites, Module, Subject, Activities
 from django.db.utils import IntegrityError
 from django.test import TestCase
-
-from accounts.models import StudentUser
-from app.models import Answer, Exercise, Favorites, Module, Subject
 
 
 class TestSubject(TestCase):
@@ -160,3 +159,38 @@ class TestFavorites(TestCase):
             exercise=Exercise.objects.get(title="TestTitle"),
         )
         self.assertTrue(Favorites.objects.filter(student__username="TestUser").exists())
+
+class TestActivities(TestCase):
+
+    def setUp(self):
+        StudentUser.objects.create(
+            username="TestUser",
+            first_name="TestFirstName",
+            last_name="TestLastName",
+            email="teststudent@gmail.com",
+            password="testPassword",
+        )
+    
+    def test_create_activity(self):
+        student = StudentUser.objects.get(username="TestUser")
+        Activities.objects.create(
+            student=student,
+            description="TestActivity")
+        self.assertTrue(Activities.objects.filter(student=student).exists())
+    
+
+    def test_return_monthly_activities(self):
+        student = StudentUser.objects.get(username="TestUser")
+        Activities.objects.create(
+            student=student,
+            description="TestActivity")
+        monthly_activities = Activities.get_monthly_activities(student)["count"]
+        self.assertEquals(monthly_activities, 2)
+    
+    def test_return_daily_activities(self):
+        student = StudentUser.objects.get(username="TestUser")
+        Activities.objects.create(
+            student=student,
+            description="TestActivity")
+        daily_activities = Activities.get_daily_activities(student)["count"]
+        self.assertEquals(daily_activities, 2)

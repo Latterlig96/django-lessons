@@ -3,15 +3,16 @@
     <head>
         {% load static %}
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="{% static 'accounts/app/common.css' %}">
+        <link rel="stylesheet" href="{% static 'chat/css/common.css' %}">
     </head>
     <body>
         <div class="form-wrapper">
             <div class="form-content">
-                <form enctype="multipart/form-data" class="form" method="post">
+                <form class="form" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <input id="btn" type="submit" value="Create">
+                    <label for="room-create-btn">Create</label>
+                    <input id="room-create-btn" type="submit" value="Create">
                 </form>
             </div>
         </div>

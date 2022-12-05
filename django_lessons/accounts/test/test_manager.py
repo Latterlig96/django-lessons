@@ -1,33 +1,31 @@
-from django.test import TestCase
-
 from unittest.mock import MagicMock
+
 from accounts.managers import CustomUserManager
 from django.contrib.auth.models import User
+from django.test import TestCase
 
 
 class TestCustomUserManager(TestCase):
-
     def setUp(self):
         self.user_case = {
             "username": "TestUser",
             "email": "test_user@gmail.com",
-            "password": "TestPassword"
+            "password": "TestPassword",
         }
         self.super_user_case = {
             "username": "TestUser",
             "email": "test_user@gmail.com",
             "first_name": "TestFirstName",
             "last_name": "TestLastName",
-            "password": "TestPassword"
+            "password": "TestPassword",
         }
-
 
     def test_create_user(self):
         manager = CustomUserManager()
         manager.create_user = MagicMock(return_value=User())
         manager.create_user(**self.user_case)
         manager.create_user.assert_called_once_with(**self.user_case)
-    
+
     def test_create_user_without_username(self):
         manager = CustomUserManager()
         manager.create = MagicMock(return_value=User())
@@ -61,7 +59,7 @@ class TestCustomUserManager(TestCase):
         manager.create = MagicMock(return_value=User())
         with self.assertRaises(ValueError):
             self.user_case.update({"email": None})
-            manager.create_user(**self.user_case)   
+            manager.create_user(**self.user_case)
 
     def test_create_user_with_none_password(self):
         manager = CustomUserManager()
@@ -75,7 +73,7 @@ class TestCustomUserManager(TestCase):
         manager.create_superuser = MagicMock(return_value=User())
         manager.create_superuser(**self.super_user_case)
         manager.create_superuser.assert_called_once_with(**self.super_user_case)
-    
+
     def test_create_super_user_without_username(self):
         manager = CustomUserManager()
         manager.create = MagicMock(return_value=User())
@@ -103,7 +101,7 @@ class TestCustomUserManager(TestCase):
         with self.assertRaises(TypeError):
             self.super_user_case.pop("first_name")
             manager.create_superuser(**self.super_user_case)
-    
+
     def test_create_super_user_without_last_name(self):
         manager = CustomUserManager()
         manager.create = MagicMock(return_value=User())

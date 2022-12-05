@@ -3,12 +3,15 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-    background-color: rgb(204, 204, 204);
+}
+
+body {
+    background-color: rgb(58, 57, 57);
 }
 
 table {
     border-collapse: collapse;
-    border-spacing: 0.5rem;
+    border-spacing: 1.5rem;
 }
 
 
@@ -16,8 +19,8 @@ table {
     color: rgb(80, 80, 80);
     margin: 20px;
     font-size: 24px;
-    background-color: rgb(95, 168, 250);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    background-color: rgb(174, 174, 174);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
     color: white;
     padding: 12px 15px;
 }
@@ -40,18 +43,86 @@ table {
 .rooms-list #room-spec td {
     padding: 12px 15px;
     font-size: 20px;
+    color: rgb(255, 255, 255);
     background: rgba(152, 236, 247, 0.397);
 }
 
 
 .rooms-list #room-spec a {
-    color: rgb(201, 250, 246);
+    color: rgb(255, 255, 255);
     text-decoration: none;
+    background: none;
     cursor: pointer;
+}
+
+.rooms-list #room-spec a:hover {
+    background: rgba(152, 236, 247, 0.397);
 }
 
 .rooms-list #room-create {
     column-span: 3;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.rooms-list #room-create a {
+    display: block;
+    width: 115px;
+    height: 60px;
+    background: #95c7be;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.form-content {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 30px;
+    margin-top: 15%;
+    margin-left: 35%;
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.form-content p {
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+    background-color: white;
+}
+
+
+input[id=id_room_name] {
+    display: table;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+
+input[id=room-create-btn] {
+    display: none;
+}
+
+select {
+    display: table;
+    padding: 5px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+label[for=room-create-btn] {
+    padding: 10px;
+    border-top: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(64, 64, 64);
     cursor: pointer;
 }

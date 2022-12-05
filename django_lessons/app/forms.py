@@ -49,3 +49,9 @@ class FavoritesForm(ModelForm):
     class Meta:
         model = Favorites
         fields = "__all__"
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(max_length=100, required=True)
+    message = forms.CharField(max_length=500, required=True)

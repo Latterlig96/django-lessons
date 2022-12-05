@@ -15,12 +15,10 @@
         <a class="media-link" href="#"><i class="fa fa-facebook"></i></a>
     </div>
     <div >
-        <form class="contact-form">
+        <form action="{% url 'app:contact' %}" class="contact-form" method="POST">
             <h2>{% trans "Contact Me" %}</h2>
-            <p type={% trans "Name:" %}><input placeholder={% blocktrans %} Write your name here {% endblocktrans %}></input></p>
-            <p type={% trans "Email:" %}><input placeholder={% blocktrans %} Let us know how to contact you back {% endblocktrans %}></input></p>
-            <p type={% trans "Message:" %}><input placeholder={% blocktrans %} What would you like to tell us {% endblocktrans %}></input></p>
-            <button class="contact-send-button">{% trans "Send Message" %}</button>
+            {{contact_form.as_p}}
+            <input type="submit" class="contact-send-button" value={% trans "Send Message" %}>
         </form>
     </div>
 </div>
