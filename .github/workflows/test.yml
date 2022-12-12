@@ -17,11 +17,11 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install dependecies
-        uses: VaultVulp/action-pipenv@v2.0.1
-        with:
-          command: install -d --system # Install all dependencies, including development ones
-
+      - name: Install pipenv
+        run: python -m pip install --upgrade pip && pip install pipenv
+      
+      - name: Install dependencies
+        run: pipenv install --deploy && pipenv install --dev --system
       - name: Django migrations
         run: mkdir db && \
              python django_lessons/manage.py makemigrations && \
