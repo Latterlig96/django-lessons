@@ -3,7 +3,7 @@ name: lint
 on:
   push:
     paths:
-      - "*.py"
+      - "django_lessons/*.py"
 
 jobs:
     flake8_py3:

@@ -18,6 +18,7 @@ INTERNAL_IPS += [ip[:-1] + '1']
 MIDDLEWARE += ["livereload.middleware.LiveReloadScript", "debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST_USER = "testuser@gmail.com"
 
 STRIPE_PUBLISHABLE_KEY = ""
 STRIPE_SECRET_KEY = ""

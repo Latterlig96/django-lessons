@@ -40,7 +40,7 @@ class ContactView(TemplateView, RedirectView):
                 self.default_subject.format(data["name"]),
                 data["message"],
                 data["email"],
-                [settings.DEFAULT_GLOBAL_MAIL],
+                [settings.EMAIL_HOST_USER],
             )
             return self.render_to_response(context)
         return self.render_to_response(context)
