@@ -1,0 +1,33 @@
+FROM python:3.9.7-slim
+
+
+ENV PYTHONUNBUGGERED 1 \
+    PYTHONDONTWRITEBYTECODE 1
+
+RUN pip install --upgrade setuptools pip && pip install -U pipenv
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends build-essential
+
+COPY Pipfile app/
+
+WORKDIR app/
+
+RUN pipenv install --deploy && pipenv install --dev --system
+
+RUN groupadd dev && \ 
+    useradd -g dev dev_user && \
+    install -d -m 0750 -o dev_user -g dev /app/static /app/db/ /app/media/
+
+USER dev_user
+
+COPY --chown=dev_user:dev scripts/docker-django-entrypoint-dev.sh entrypoint.sh
+COPY --chown=dev_user:dev django_lessons/ .
+
+RUN chmod +x entrypoint.sh
+
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/sh", "entrypoint.sh"]
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

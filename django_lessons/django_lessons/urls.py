@@ -15,7 +15,7 @@ Including another URLconf
 """
 from app.views import IndexView
 from django.conf import settings
-from django.conf.urls import url
+from django.urls import re_path
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
@@ -26,9 +26,10 @@ urlpatterns = [
     path("app/", include("app.urls", namespace="app")),
     path("order/", include("order.urls", namespace="order")),
     path("chat/", include("chat.urls", namespace="chat")),
-    url(r"^$", IndexView.as_view(), name="home"),
+    re_path(r"^$", IndexView.as_view(), name="home"),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]

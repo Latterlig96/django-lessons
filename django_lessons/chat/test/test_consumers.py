@@ -1,11 +1,9 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.testing import WebsocketCommunicator
-from django.conf import settings
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
 
 
-@override_settings(CHANNEL_LAYERS=settings.CHANNEL_LAYERS["test"])
 class ChatRoomConsumerTest(TestCase):
     def setUp(self):
         self.correct_message = {

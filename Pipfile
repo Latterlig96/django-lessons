@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==4.0.1"
+pillow = "==8.4.0"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "*"}
+channels = {extras = ["daphne"], version = "*"}
+channels-redis = "*"
+stripe = "*"
+python-dotenv = "*"
+django-storages = "*"
+boto3 = "*"
+psycopg2-binary = "*"
+gunicorn = {extras = ["eventlet"], version = "*"}
+eventlet = "==0.30.2"
+
+[dev-packages]
+django-livereload-server = "*"
+django-debug-toolbar = "*"
+
+[requires]
+python_version = "3"

@@ -1,0 +1,27 @@
+FROM python:3.9.7-slim
+
+ENV PYTHONUNBUGGERED 1 \
+    PYTHONDONTWRITEBYTECODE 1
+
+RUN pip install --upgrade setuptools pip && pip install -U pipenv
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends build-essential
+
+COPY Pipfile app/
+
+WORKDIR app/
+
+RUN pipenv install --deploy && pipenv install --system
+
+RUN groupadd prod && \ 
+    useradd -g prod prod_user && \
+    install -d -m 0750 -o prod_user -g prod /app/static /app/media/
+
+USER prod_user
+
+COPY --chown=prod_user:prod django_lessons/ .
+
+EXPOSE 8000
+
+ENTRYPOINT ["/bin/sh", "entrypoint.sh"]

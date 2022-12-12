@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.urls import reverse 
 
 from accounts.models import StudentUser
@@ -8,7 +8,6 @@ from order.models import Product
 from unittest.mock import MagicMock, patch
 
 
-@override_settings(STRIPE_SECRET_KEY="sampleSecret", STRIPE_PUBLISHABLE_KEY="sampleKey")
 class TestProductLandingView(TestCase):
     def setUp(self):
         Product.objects.create(
@@ -75,7 +74,6 @@ class TestCancelView(TestCase):
         self.assertTemplateUsed(response, "order/cancel.html")
 
 
-@override_settings(STRIPE_SECRET_KEY="sampleSecret", STRIPE_PUBLISHABLE_KEY="sampleKey")
 class TestStripeCheckoutSessionView(TestCase):
     def setUp(self):
         Product.objects.create(

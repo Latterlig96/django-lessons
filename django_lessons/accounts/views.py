@@ -6,7 +6,7 @@ from django.contrib.auth import views
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
