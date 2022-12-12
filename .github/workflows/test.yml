@@ -41,4 +41,4 @@ jobs:
         run: pipenv install coverage
 
       - name: Django Coverage action
-        run: pipenv run coverage run python django_lessons/manage.py test
+        run: pipenv run python -m coverage run django_lessons/manage.py test
