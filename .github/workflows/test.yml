@@ -21,15 +21,15 @@ jobs:
         run: python -m pip install --upgrade pip && pip install pipenv
       
       - name: Install dependencies
-        run: pipenv install --deploy && pipenv install --dev --system
+        run: pipenv install -d 
 
       - name: Django migrations
-        run: mkdir db && \
-             python3 django_lessons/manage.py makemigrations && \
-             python3 django_lessons/manage.py migrate --run-syncdb
+        run: mkdir django_lessons/db && \
+             python django_lessons/manage.py makemigrations && \
+             python django_lessons/manage.py migrate --run-syncdb
 
       - name: Install coverage
-        run: python3 -m pip install coverage
+        run: python -m pip install coverage
 
       - name: Django Coverage action
-        run: coverage run python3 django_lessons/manage.py test
+        run: coverage run python django_lessons/manage.py test
