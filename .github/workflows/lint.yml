@@ -2,6 +2,8 @@ name: lint
 
 on:
   push:
+    branches:
+      - "*"
     paths:
       - "django_lessons/*.py"
 
