@@ -20,15 +20,15 @@ jobs:
       - name: Install dependecies
         uses: VaultVulp/action-pipenv@v2.0.1
         with:
-          command: install -d # Install all dependencies, including development ones
+          command: install -d --system # Install all dependencies, including development ones
 
       - name: Django migrations
         run: mkdir db && \
-             pipenv run python django_lessons/manage.py makemigrations && \
-             pipenv run python django_lessons/manage.py migrate --run-syncdb
+             python django_lessons/manage.py makemigrations && \
+             python django_lessons/manage.py migrate --run-syncdb
 
       - name: Install coverage
-        run: pipenv install coverage
+        run: python -m pip install coverage
 
       - name: Django Coverage action
-        run: coverage run python django_lessons/manage.py test 
+        run: coverage run python django_lessons/manage.py test
