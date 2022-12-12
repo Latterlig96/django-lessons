@@ -23,10 +23,12 @@ jobs:
           command: install -d # Install all dependencies, including development ones
 
       - name: Django migrations
-        run: mkdir db && pipenv run python manage.py makemigrations && pipenv run python manage.py migrate --run-syncdb
+        run: mkdir db && \
+             pipenv run python django_lessons/manage.py makemigrations && \
+             pipenv run python django_lessons/manage.py migrate --run-syncdb
+
+      - name: Install coverage
+        run: pipenv install coverage
 
       - name: Django Coverage action
-        uses: actions/python-django-coverage-gitHub-action@0.9
-        with:
-          django-app: 'django-lessons'
-          minimum-coverage: '90'
+        run: coverage run python django_lessons/manage.py test 
