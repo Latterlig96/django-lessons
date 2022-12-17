@@ -52,15 +52,15 @@ jobs:
       - name: Django Coverage order tests
         run: pipenv run coverage run django_lessons/manage.py test order
 
-      - name: 'Upload Artifact'
+      - name: Upload Coverage Artifact
         uses: actions/upload-artifact@v3
         with:
           name: test-coverage
           path: .coverage
           retention-days: 1
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Get Coverage comment 
+        uses: orgoro/coverage@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: .coverage
+            coverageFile: .coverage
+            token: ${{ secrets.GITHUB_TOKEN }}
