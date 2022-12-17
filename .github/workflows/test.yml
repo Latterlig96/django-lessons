@@ -59,8 +59,8 @@ jobs:
           path: .coverage
           retention-days: 1
 
-      - name: Get Coverage comment 
-        uses: orgoro/coverage@v3
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
         with:
-            coverageFile: .coverage
-            token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: .coverage
