@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - "*"
-    paths:
-      - "*.py"
+  pull_request:
+    branches:
+      - "*"
 
 jobs:
     flake8_py3:
