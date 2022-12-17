@@ -44,27 +44,27 @@ jobs:
         run: pipenv install coverage
 
       - name: Django Coverage accounts tests
-        run: pipenv run coverage run django_lessons/manage.py test accounts 
+        run: pipenv run coverage run --data-file=coverage.xml django_lessons/manage.py test accounts 
 
       - name: Django Coverage app tests
-        run: pipenv run coverage run django_lessons/manage.py test app
+        run: pipenv run coverage run --data-file=coverage.xml django_lessons/manage.py test app
       
       - name: Django Coverage chat tests
-        run: pipenv run coverage run django_lessons/manage.py test chat
+        run: pipenv run coverage run --data-file=coverage.xml django_lessons/manage.py test chat
       
       - name: Django Coverage order tests
-        run: pipenv run coverage run django_lessons/manage.py test order
+        run: pipenv run coverage run --data-file=coverage.xml django_lessons/manage.py test order
 
       - name: Upload Coverage Artifact
         uses: actions/upload-artifact@v3
         with:
           name: test-coverage
-          path: .coverage
+          path: coverage.xml
           retention-days: 1
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: .coverage
+          files: coverage.xml
           version: "v0.1.15"
