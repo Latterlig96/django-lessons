@@ -67,3 +67,4 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: .coverage
+          version: "v0.1.15"
