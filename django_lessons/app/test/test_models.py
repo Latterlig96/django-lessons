@@ -170,15 +170,14 @@ class TestActivities(TestCase):
             email="teststudent@gmail.com",
             password="testPassword",
         )
-    
+
     def test_create_activity(self):
         student = StudentUser.objects.get(username="TestUser")
         Activities.objects.create(
             student=student,
             description="TestActivity")
         self.assertTrue(Activities.objects.filter(student=student).exists())
-    
-
+                                
     def test_return_monthly_activities(self):
         student = StudentUser.objects.get(username="TestUser")
         Activities.objects.create(
@@ -186,7 +185,7 @@ class TestActivities(TestCase):
             description="TestActivity")
         monthly_activities = Activities.get_monthly_activities(student)["count"]
         self.assertEquals(monthly_activities, 2)
-    
+
     def test_return_daily_activities(self):
         student = StudentUser.objects.get(username="TestUser")
         Activities.objects.create(

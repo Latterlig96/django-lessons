@@ -1,0 +1,94 @@
+version: "3.9"
+services:
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    ports:
+      - 9000:9000
+      - 9001:9001
+    env_file:
+      - .env
+    volumes:
+      - minio_data:/data
+    networks:
+      - prod-network
+
+  db:
+    image: postgres:14
+    ports:
+      - 5535:5535
+    env_file:
+        - .env
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+      - ./scripts/create-database.sh:/docker-entrypoint-initdb.d/create-database.sh
+    command: -p 5535
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h db -p 5535"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prod-network
+
+  redis:
+    image: redis:latest
+    expose:
+     - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+    restart: always
+    networks:
+      - prod-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 6898:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - prod-network
+
+  web:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
+    volumes:
+      - ./scripts/docker-django-entrypoint-prod.sh:/app/entrypoint.sh
+    networks:
+      - prod-network
+    depends_on:
+      - minio
+      - db
+      - redis
+
+  daphne:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    volumes:
+      - ./scripts/docker-django-daphne.sh:/app/entrypoint.sh
+    expose:
+      - "9010"
+    env_file:
+      - .env
+    networks:
+      - prod-network
+    depends_on:
+      - web
+
+networks:
+  prod-network:
+
+volumes:
+  minio_data:
+  db_data:

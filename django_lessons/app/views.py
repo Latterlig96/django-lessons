@@ -7,7 +7,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import RedirectView, TemplateView
 from django.views.generic.edit import UpdateView
@@ -40,7 +40,7 @@ class ContactView(TemplateView, RedirectView):
                 self.default_subject.format(data["name"]),
                 data["message"],
                 data["email"],
-                [settings.DEFAULT_GLOBAL_MAIL],
+                [settings.EMAIL_HOST_USER],
             )
             return self.render_to_response(context)
         return self.render_to_response(context)

@@ -11,11 +11,12 @@ import os
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
-from chat.urls import websocket_url_patterns
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_lessons.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", os.getenv("DJANGO_SETTINGS", default="django_lessons.settings.dev"))
 django_asgi_app = get_asgi_application()
+
+from chat.urls import websocket_url_patterns
 
 application = ProtocolTypeRouter(
     {

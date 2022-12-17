@@ -233,8 +233,9 @@ class TestFavoriteListView(TestCase):
         )
         Favorites.objects.create(
             student=StudentUser.objects.get(username="TestUserWithoutSubscription"),
-            exercise=Exercise.objects.get(title="testTitle"))
-    
+            exercise=Exercise.objects.get(title="testTitle")
+        )
+
     def test_favorites_view(self):
         profile = StudentUser.objects.get(username="TestUserWithoutSubscription")
         self.client.force_login(user=profile)

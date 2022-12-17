@@ -61,9 +61,9 @@ class StudentUserTest(TestCase):
             "first_name": "TestFirstName",
             "last_name": "TestLastName",
             "is_student": True,
-            "is_subscriber": False,
+            "is_subscriber": False
         }
-    
+
     def test_student_user_create(self):
         StudentUser.objects.create(**self.correct_case)
         self.assertTrue(StudentUser.objects.filter(username="TestUser").exists())
@@ -84,9 +84,9 @@ class TutorUserTest(TestCase):
             "first_name": "TestFirstName",
             "last_name": "TestLastName",
             "is_student": False,
-            "is_subscriber": False,
+            "is_subscriber": False
         }
-    
+
     def test_student_user_create(self):
         TutorUser.objects.create(**self.correct_case)
         self.assertTrue(TutorUser.objects.filter(username="TestUser").exists())
@@ -142,8 +142,6 @@ class TutorProfileTest(TestCase):
         self.assertTrue(
             TutorProfile.objects.filter(user__username="TestUser").exists()
         )
-
-    
 
 class MessagesTest(TestCase):
     def setUp(self):
