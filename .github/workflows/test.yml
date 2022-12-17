@@ -40,9 +40,21 @@ jobs:
       - name: Install coverage
         run: pipenv install coverage
 
-      - name: Django Coverage action
-        run: |
-             pipenv run coverage run django_lessons/manage.py test accounts && \ 
-             pipenv run coverage run django_lessons/manage.py test app && \ 
-             pipenv run coverage run django_lessons/manage.py test chat && \
-             pipenv run coverage run django_lessons/manage.py test order &&
+      - name: Django Coverage accounts tests
+        run: pipenv run coverage run django_lessons/manage.py test accounts 
+
+      - name: Django Coverage app tests
+        run: pipenv run coverage run django_lessons/manage.py test app
+      
+      - name: Django Coverage chat tests
+        run: pipenv run coverage run django_lessons/manage.py test chat
+      
+      - name: Django Coverage order tests
+        run: pipenv run coverage run django_lessons/manage.py test order
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage
+          path: django_lessons/.coverage
+          retention-days: 1
