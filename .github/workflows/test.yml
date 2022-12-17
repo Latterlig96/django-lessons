@@ -56,14 +56,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-coverage
-          path: django_lessons/.coverage
+          path: .coverage
           retention-days: 1
 
       - name: Monitor coverage
         uses: slavcodev/coverage-monitor-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          coverage_path: "django_lessons/.coverage"
+          coverage_path: ".coverage"
           threshold_alert: 10
           threshold_warning: 50
           threshold_metric: "lines"
