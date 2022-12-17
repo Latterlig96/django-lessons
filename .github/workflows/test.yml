@@ -52,9 +52,11 @@ jobs:
       - name: Django Coverage order tests
         run: pipenv run coverage run django_lessons/manage.py test order
 
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          name: test-coverage
-          path: django_lessons/.coverage
-          retention-days: 1
+          filename: django_lessons/.coverage
+          output: both
+          fail_below_min: true
+          thresholds: '75 100'
+      
