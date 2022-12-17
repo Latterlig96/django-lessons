@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
         max_length=150,
         unique=True,
         validators=[username_validator],
-        error_messages={"unique": _("A user with that username already exists."),},
+        error_messages={"unique": _("A user with that username already exists.")}
     )
 
     email = models.EmailField(blank=False, null=False, unique=True)

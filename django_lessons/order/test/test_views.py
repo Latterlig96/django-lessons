@@ -23,7 +23,7 @@ class TestProductLandingView(TestCase):
             last_name="testStudentLastName",
             is_student=True,
         )
-    
+
     def test_product_landing_view(self):
         profile = StudentUser.objects.get(username="TestStudent")
         self.client.force_login(user=profile)
@@ -47,7 +47,7 @@ class TestSuccessView(TestCase):
             last_name="testStudentLastName",
             is_student=True,
         )
-    
+
     def test_success_view(self):
         profile = StudentUser.objects.get(username="TestStudent")
         self.client.force_login(user=profile)
@@ -77,10 +77,10 @@ class TestCancelView(TestCase):
 class TestStripeCheckoutSessionView(TestCase):
     def setUp(self):
         Product.objects.create(
-        name="TestProduct",
-        price=20.0,
-        currency="USD",
-        stripe_product_id="2",            
+            name="TestProduct",
+            price=20.0,
+            currency="USD",
+            stripe_product_id="2",            
         )
         StudentUser.objects.create(
             username="TestStudent",
@@ -89,7 +89,7 @@ class TestStripeCheckoutSessionView(TestCase):
             last_name="testStudentLastName",
             is_student=True,
         )
-    
+                        
     @patch("stripe.checkout.Session")
     def test_stripe_post_view(self, stripe_mock):
         class Session:

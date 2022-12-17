@@ -115,7 +115,8 @@ class Activities(models.Model):
             .annotate(count=Count("month"))\
             .order_by("month")\
             .values("month", "count")\
-            .get() # type: ignore
+            .get()  # type: ignore
+
 
     @classmethod
     def get_daily_activities(cls, student: StudentUser) -> QuerySet:
@@ -126,4 +127,4 @@ class Activities(models.Model):
             .annotate(count=Count("day"))\
             .order_by("day")\
             .values("day", "count")\
-            .get() # type: ignore
+            .get()  # type: ignore

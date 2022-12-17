@@ -34,7 +34,7 @@ class TestStudentRegisterView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertTrue(StudentUser.objects.filter(username="TestUser").exists())
         self.assertEquals(mocked_handler.call_count, 1)
-        
+
     def test_fail_case_register_student_without_username(self):
         self.correct_case.update({"username": ""})
         response = self.client.post(reverse("accounts:register"), self.correct_case)
@@ -304,7 +304,7 @@ class TestPasswordResetView(TestCase):
             email="teststudent@gmail.com",
             password="testPassword",
         )
-    
+
     def test_password_reset_view(self):
         response = self.client.get(reverse("accounts:password_reset"))
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -317,7 +317,7 @@ class TestPasswordResetView(TestCase):
         self.assertEqual(mail.outbox[0].subject, "Password reset on testserver")
         token = response.context[0]["token"]
         uid = response.context[0]["uid"]
-        response = self.client.get(reverse("accounts:password_reset_confirm", kwargs={"token":token,"uidb64":uid}))
+        response = self.client.get(reverse("accounts:password_reset_confirm", kwargs={"token": token, "uidb64": uid}))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        response = self.client.post(reverse("accounts:password_reset_confirm", kwargs={"token":token,"uidb64":uid}), {"new_password1":"pass","new_password2":"pass"})
+        response = self.client.post(reverse("accounts:password_reset_confirm", kwargs={"token": token, "uidb64": uid}), {"new_password1": "pass", "new_password2": "pass"})
         self.assertEqual(response.status_code, HTTPStatus.FOUND)

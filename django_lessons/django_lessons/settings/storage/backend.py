@@ -6,11 +6,11 @@ class StaticStorage(S3Boto3Storage):
     default_acl = 'public-read'  
     file_overwrite = False
     url_protocol = "http:"
-    custom_domain = "%s/%s" %(settings.AWS_S3_LOCAL_ENDPOINT_URL, bucket_name)
+    custom_domain = "%s/%s" % (settings.AWS_S3_LOCAL_ENDPOINT_URL, bucket_name)
 
 class MediaStorage(S3Boto3Storage):
     bucket_name = settings.AWS_S3_MEDIA_BUCKET_NAME
     default_acl = 'public-read'  
     file_overwrite = False
     url_protocol = "http:"
-    custom_domain = "%s/%s" %(settings.AWS_S3_LOCAL_ENDPOINT_URL, bucket_name)
+    custom_domain = "%s/%s" % (settings.AWS_S3_LOCAL_ENDPOINT_URL, bucket_name)
