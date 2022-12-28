@@ -44,6 +44,7 @@ This project aims to create a learning platform for both student and tutors to c
 * **S3** <img src=".github/.idea/s3.svg" width=60> 
 * **Postgresql** <img src=".github/.idea/postgresql.svg.png" width=60>
 * **Redis** <img src=".github/.idea/redis.svg.png" width=150>
+* **Nginx** <img src=".github/.idea/nginx.svg.png" width=150>
 
 ## Further improvmenets
 
