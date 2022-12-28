@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'chat/css/common.css' %}">
     </head>
@@ -11,8 +12,8 @@
                 <form class="form" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <label for="room-create-btn">Create</label>
-                    <input id="room-create-btn" type="submit" value="Create">
+                    <label for="room-create-btn">{% trans "Create" %}</label>
+                    <input id="room-create-btn" type="submit" value={% trans "Create" %}>
                 </form>
             </div>
         </div>

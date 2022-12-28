@@ -42,6 +42,8 @@ class StudentProfileView(DetailView):
                 student=instance.user
             ).order_by("created_at")[:10]
         context["student_profile"] = instance
+        context["monthly_activities"] = Activities.get_monthly_activities(instance.user)
+        context["daily_activities"] = Activities.get_daily_activities(instance.user)
         return context
 
     def get_queryset(self) -> QuerySet:

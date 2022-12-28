@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <div id="alert-message" role="alert" style="padding: 10px; border-radius: 5px; background: rgb(176, 176, 242);">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -28,4 +28,9 @@
     </div>
 </a>
 {% endfor %}
+<script>
+    setTimeout(function () {
+        document.getElementById('alert-message').style.display='none';
+    }, 2000);
+</script>
 {% endblock %}

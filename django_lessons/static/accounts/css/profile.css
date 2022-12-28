@@ -200,3 +200,30 @@ table th {
     color: white;
     padding-left: 20rem;
 }
+
+.canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+    width: 80%;
+    background: black;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.monthly-activities-canvas {
+    align-self: flex-end;
+    width: 450px;
+    height: 250px;
+    margin-left: 15rem;
+}
+
+.daily-activities-canvas {
+    align-self: flex-end;
+    width: 450px;
+    height: 250px;
+    margin-left: 15rem;
+}

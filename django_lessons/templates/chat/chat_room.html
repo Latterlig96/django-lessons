@@ -2,6 +2,7 @@
 <html>
 <head>
     {% load static %}
+    {% load i18n %}
     <meta charest="utf-8">
     <link rel="stylesheet" href="{% static 'chat/css/chat_room.css' %}">
 </head>
@@ -12,10 +13,10 @@
         <div class="container">
             <div class="chat-content">
                 <textarea id="log" cols="120" rows="20" readonly></textarea><br>
-                <h5 id="message-info">Enter your message here</h5>
-                <input id="message-text" type="text" size="100" placeholder="Your message..."><br><br>
-                <label for="submit">Send</label>
-                <input id="submit" type="button" value="Send">
+                <h5 id="message-info">{% trans "Enter your message here" %}</h5>
+                <input id="message-text" type="text" size="100" placeholder={% trans "Your message..." %}><br><br>
+                <label for="submit">{% trans "Send" %}</label>
+                <input id="submit" type="button" value={% trans "Send" %}>
             </div>
         </div>        
     </body>

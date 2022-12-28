@@ -2,6 +2,7 @@
 <html>
     <head>
         {% load static %}
+        {% load i18n %}
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{% static 'chat/css/common.css' %}">
     </head>
@@ -9,21 +10,21 @@
         <table class="rooms-list">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Room name</th>
-                    <th>Connect</th>
+                    <th>{% trans "Id" %}</th>
+                    <th>{% trans "Room name" %}</th>
+                    <th>{% trans "Connect" %}</th>
                 </tr>
             </thead>
             {% for room in object_list %}
                 <tr id="room-spec">
                     <td id="room-id">{{ forloop.counter }}.</td>
                     <td id="room-name">{{ room.room_name }}</td>
-                    <td id="room-connect"><a href={% url "chat:chat_room" room.id room.room_name %}>Connect to room</a></td>
+                    <td id="room-connect"><a href={% url "chat:chat_room" room.id room.room_name %}>{% trans "Connect to room" %}</a></td>
                 </tr>
             {% endfor %}
             {% if request.user.is_tutor %}
             <tr>
-                <td id="room-create"> <a href={% url "chat:room_create" %}>Create new Room</a></td>
+                <td id="room-create"> <a href={% url "chat:room_create" %}>{% trans "Create new Room" %}</a></td>
             </tr>
             {% endif %}                
         </table>

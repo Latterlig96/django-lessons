@@ -9,6 +9,7 @@
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="{% static 'accounts/js/profile.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <div class="sidebar">
@@ -50,16 +51,16 @@
                 <li>
                     <a href="{% url 'chat:student_chat_room' request.user.pk %}">
                         <i class='bx bxs-door-open'></i>
-                        <span class="links-name">Chat Rooms</span>
+                        <span class="links-name">{% trans "Chat Rooms" %}</span>
                     </a>
-                    <span class="tooltip">Rooms</span>
+                    <span class="tooltip">{% trans "Rooms" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'accounts:student_answers' request.user.pk %}">
                         <i class='bx bx-message-rounded-edit'></i>
-                        <span class="links-name">Answers</span>
+                        <span class="links-name">{% trans "Answers" %}</span>
                     </a>
-                    <span class="tooltip">Answers</span>
+                    <span class="tooltip">{% trans "Answers" %}</span>
                 </li>
                 <li>
                     <a href="{% url 'app:favorites' request.user.pk %}">
@@ -85,7 +86,7 @@
             </ul>
         </div>
         {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <div id="alert-message" role="alert" style="padding: 10px; left: 30%; border-radius: 5px; background: rgb(176, 176, 242);">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -131,7 +132,13 @@
                 </div>
             </div>
         </div>
-        <div class="activities-plot">
+        <div class="canvas-wrapper">
+            <div class="monthly-activities-canvas">
+                <canvas id="monthly-activities-plot"></canvas>
+            </div>
+            <div class="daily-activities-canvas">
+                <canvas id="daily-activities-plot"></canvas>
+            </div>
         </div>
         <div class="activities-list">
             <h3>{% trans "Your activities" %}:</h3>    
@@ -155,4 +162,58 @@
             {% endif %}
         </div>
     </body>
+    <script>
+        const monthly_plot_ctx = document.getElementById('monthly-activities-plot');
+        const daily_plot_ctx = document.getElementById('daily-activities-plot');
+        const monthly_activities = {{ monthly_activities | safe }}
+        const daily_activities = {{ daily_activities | safe }}
+
+        function toMonthName(monthNumber) {
+            const date = new Date();
+            date.setMonth(monthNumber - 1);          
+            return [date.toLocaleString('en-US', {
+              month: 'long',
+            })];
+          }
+          
+        new Chart(monthly_plot_ctx, {
+            type: 'bar',
+            data: {
+              labels: toMonthName(monthly_activities["month"]),
+              datasets: [{
+                label: 'Monthly activities',
+                data: [monthly_activities["count"]],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+          new Chart(daily_plot_ctx, {
+            type: 'bar',
+            data: {
+              labels: [daily_activities["day"]],
+              datasets: [{
+                label: 'Daily activities',
+                data: [daily_activities["count"]],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+    setTimeout(function () {
+        document.getElementById('alert-message').style.display='none';
+    }, 2000);
+    </script>
 </html>
